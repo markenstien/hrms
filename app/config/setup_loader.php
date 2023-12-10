@@ -59,14 +59,14 @@
         break;
 
         case 'up':
-            define('URL' , 'https://medicad.store');
+            define('URL' , 'https://bitmates.site');
             define('DBVENDOR' , 'mysql');
             define('DBHOST' , 'localhost');
-            define('DBUSER' , 'korpzpru_th_main');
-            define('DBPASS' , 'Y[@h=Ytz;(f}');
-            define('DBNAME' , 'korpzpru_cadaceous');
+            define('DBUSER' , 'korpzpru_hrms');
+            define('DBPASS' , '#gzet.@CTt(F');
+            define('DBNAME' , 'korpzpru_hrms');
 
-            define('BASECONTROLLER' , 'HomeController');
+            define('BASECONTROLLER' , 'Login');
             define('BASEMETHOD' , 'index');
         break;
     }

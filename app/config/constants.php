@@ -31,9 +31,9 @@
 
     define('SITE_NAME' , '');
 
-    define('COMPANY_NAME' , 'Bit And Bytes');
+    define('COMPANY_NAME' , 'Bitmates');
 
-    define('COMPANY_NAME_ABBR', 'Bit&Bytes');
+    define('COMPANY_NAME_ABBR', 'Bitmates');
     define('COMPANY_EMAIL', '');
     define('COMPANY_TEL', '');
     define('COMPANY_ADDRESS', '');
