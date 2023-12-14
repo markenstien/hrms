@@ -21,7 +21,9 @@
 	_routeInstance('department', 'DepartmentController', $routes);
 	_routeInstance('schedule', 'ScheduleController', $routes);
 	_routeInstance('admin-shift', 'AdminShiftController', $routes);
-	_routeInstance('payroll', 'PayrollController', $routes);
+	_routeInstance('payroll', 'PayrollController', $routes, [
+		'view-payslip' => 'show_payslip' 
+	]);
 	_routeInstance('leave', 'LeaveController', $routes, [
 		'approve' => 'approve',
 		'admin-approval' => 'adminApproval',

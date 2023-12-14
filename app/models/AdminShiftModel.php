@@ -5,6 +5,39 @@
         public $table = 'admin_shifts';
         public $childTable = 'admin_shift_items';
 
+        public function updateShift($data, $shiftItems) {
+            $updateShiftStatus = parent::update([
+                'shift_name' => $data['shift_name'],
+                'shift_description' => $data['shift_description']
+            ], $data['id']);
+
+            $this->updateShiftItems($data['id'], $shiftItems);
+        }
+
+        public function getItems($shiftId) {
+            $this->db->query(
+                "SELECT * FROM {$this->childTable}
+                    WHERE shift_id = '{$shiftId}'"
+            );
+
+            return $this->db->resultSet();
+        }
+
+        public function updateShiftItems($shiftId, $shiftItems) {
+            $sql = "";
+
+            foreach($shiftItems as $key => $row) {
+                $sql .= "UPDATE {$this->childTable} SET time_in = '{$row['time_in']}',
+                    time_out = '{$row['time_out']}',
+                    is_off = '{$row['rd']}'
+
+                    WHERE shift_id = '{$shiftId}'
+                    AND day = '{$row['day']}';";
+            }
+
+            $this->db->query($sql);
+            return $this->db->execute();
+        }
         public function addNewShifts($data, $shiftItems) {
 
             if(parent::single([

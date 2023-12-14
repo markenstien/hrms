@@ -206,7 +206,7 @@
 					'item.user_id' => $userId
 				]
 			])[0] ?? false;
-
+			
 			$user = $this->userModel->get($payslip->user_id);
 
 			$data = [

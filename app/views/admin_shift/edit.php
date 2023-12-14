@@ -9,6 +9,7 @@
             <div class="card-body">
                 <?php Flash::show()?>
                 <?php echo $form->start()?>
+                    <?php Form::hidden('id', $shift->id)?>
                     <div class="form-group">
                         <?php echo $form->getRow('shift_name')?>
                     </div>
@@ -31,22 +32,22 @@
                             </thead>
 
                             <tbody>
-                                <?php foreach($daysoftheweek as $key => $day) :?>
+                                <?php foreach($shiftItems as $key => $row) :?>
                                     <tr>
                                         <td>
                                             <?php
-                                                Form::hidden("day[{$key}][day]" , $day);
-                                                echo $day;
+                                                Form::hidden("day[{$key}][day]" , $row->day);
+                                                echo $row->day;
                                             ?>
                                         </td>
                                         <td>
                                             <?php
-                                                Form::time("day[{$key}][time_in]" , '08:00');
+                                                Form::time("day[{$key}][time_in]" , $row->time_in);
                                             ?>
                                         </td>
                                         <td>
                                             <?php
-                                                Form::time("day[{$key}][time_out]" , '17:00');
+                                                Form::time("day[{$key}][time_out]" , $row->time_out);
                                             ?>
                                         </td>
                                         <td>

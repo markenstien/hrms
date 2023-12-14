@@ -33,4 +33,19 @@
                 echo json_encode($retVal);
             }
         }
+
+        public function getById() {
+            $retVal = [];
+            $req = request()->inputs();
+            $user = $this->model->get($req['id']);
+
+            if(!$user) {
+                $retVal['message'] = 'No user found';
+            } else {
+                $retVal['message'] = 'User found';
+                $retVal['user'] = $user;
+            }
+            
+            echo json_encode($retVal);
+        }
     }

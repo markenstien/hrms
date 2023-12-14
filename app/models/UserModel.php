@@ -14,7 +14,8 @@
             'password',
             'is_deleted',
             'birthdate',
-            'gender'
+            'gender',
+            'id'
         ];
 
         public function addNew($userData) {

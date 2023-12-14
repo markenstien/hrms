@@ -13,6 +13,7 @@
             $this->branch = model('BranchModel');
             $this->schedule = model('ScheduleModel');
             $this->logModel = model('SystemLogModel');
+            $this->payrollItemModel = model('PayrollItemModel');
             $this->form = new UserForm();
 
             $this->data['form'] = $this->form;
@@ -132,74 +133,13 @@
 
         public function show($id) {
             $this->data['user'] = $this->user->get($id);
+            $this->data['payslips'] = $this->payrollItemModel->getAll([
+                'where' => [
+                    'item.user_id' => $id
+                ]
+            ]);
             return $this->view('user/show', $this->data);
         }
-
-
-        // public function store()
-        // {
-        //     $post = request()->posts();
-        //     $rate_per_hour = $post['rate_per_day'] / $post['work_hours'];
-        //     $response = $this->user->register([
-
-        //         'firstname' => $post['firstname'],
-
-        //         'lastname'  => $post['lastname'],
-
-        //         'branch_id'  => $post['branch_id'],
-                
-        //         'department'  => $post['department']
-
-        //     ], [
-
-        //         'work_hours' => $post['work_hours'],
-
-        //         'max_work_hours' => $post['max_work_hours'],
-
-        //         'rate_per_day'  => $post['rate_per_day'],
-
-        //         'rate_per_hour' => $rate_per_hour
-
-        //     ],$post['logout']);
-
-
-
-        //     if($response){
-
-        //         Flash::set("{$post['firstname']} has been created");
-
-        //         return redirect('user/edit/'.$response);
-
-        //     }
-
-
-
-        //     return redirect('user/index');
-
-        // }
-
-        // public function update()
-        // {
-        //     $post = request()->posts();
-        
-        //     $updateData['meta'] = $post['meta'];
-        //     $updateData['main'] = $post['main'];
-        //     $updateData['user_id'] = $post['user_id'];
-
-        //     if(isset($post['logout']))
-        //         $updateData['logout'] = $post['logout'];
-
-        //     if(isset($post['deviceLogin']))
-        //         $updateData['deviceLogin'] = $post['deviceLogin'];
-
-        //     $response = $this->user->updateAll($updateData);
-
-        //     if($response) {
-        //         Flash::set($this->user->getMessageString());
-        //     }
-
-        //     return request()->return();
-        // }
 
         public function update_work_time()
         {

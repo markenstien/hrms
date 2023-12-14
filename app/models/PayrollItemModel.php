@@ -54,11 +54,11 @@
 			$where = null;
 			$order = null;
 
-			if(isset($params['where'])) {
+			if(!empty($params['where'])) {
 				 $where = " WHERE ".parent::convertWhere($params['where']);
 			}
 
-			if(isset($params['order'])) {
+			if(!empty($params['order'])) {
 				$order = " ORDER BY {$params['order']}";
 			}
 			$this->db->query(
@@ -86,6 +86,7 @@
 					on position.id = eed.position_id
 					{$where} {$order}"
 			);
+
 
 			return $this->db->resultSet();
 		}

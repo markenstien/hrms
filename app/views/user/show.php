@@ -37,6 +37,25 @@
                     <div class="col-md-8">
                         <section>
                             <h4>Paylsips</h4>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <th>#</th>
+                                    <th>Cutoff</th>
+                                    <th>View</th>
+                                </thead>
+
+                                <tbody>
+                                    <?php foreach($payslips as $key => $row) :?>
+                                        <tr>
+                                            <td><?php echo ++$key?></td>
+                                            <td><?php echo "{$row->start_date} To {$row->end_date}"?></td>
+                                            <td><?php echo wLinkDefault(_route('payroll:view-payslip', $row->payroll_id, [
+                                                'user_id' => seal($row->user_id)
+                                            ]), 'Show Payslip')?></td>
+                                        </tr>
+                                    <?php endforeach?>
+                                </tbody>
+                            </table>
                         </section>
                     </div>
                 </div>
