@@ -528,31 +528,22 @@
 
 
         public function startSession($userId)
-
         {
-
-            $user = $this->getMeta($userId);
-
-
+            $user = $this->get($userId);
 
             Session::set('auth' , [
                 'id'        => $user->id,
+                'uid'       => $user->uid,
                 'firstname' => $user->firstname,
                 'lastname'  => $user->lastname,
                 'type'      => $user->type,
-                'apiToken'     => $user->userMeta->domain_user_token ?? '',
-                'domain'     => $user->userMeta->domain ?? '',
-                'ratePerHour' => $user->userMeta->rate_per_hour ?? '',
-                'branch_id' => $user->branch_id,
-                'is_branch_timekeeper' => $user->is_branch_timekeeper
+                'department_id' => $user->branch_id,
+                'profile_pic' => $user->profile_url,
+                'position_name' => $user->position_name,
+                'shift_name'  => $user->shift_name
             ]);
 
-            
-
-
-
             return Session::get('auth');
-
         }
 
 

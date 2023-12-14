@@ -72,6 +72,14 @@
                 if($isUploadOk && (upload_empty('profile') == false)) {
                     $this->user->uploadProfile('profile', $id);
                 }
+
+                if(isEqual(whoIs('id'), $id)) {
+                    $this->user->startSession($id);
+                }
+
+                Flash::set("User has been updated");
+
+                return redirect(_route('user:show', $id));
             }
 
             $branches = $this->branch->all(null , ' branch asc ');
