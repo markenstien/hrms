@@ -212,7 +212,7 @@
 				'type' => 'select',
 				'name' => 'type',
 				'class' => 'form-control',
-				'required' => '',
+				'required' => true,
 				'options' => [
 					'label' => 'User Access',
 					'option_values' => [

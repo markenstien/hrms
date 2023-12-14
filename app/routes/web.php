@@ -22,7 +22,13 @@
 	_routeInstance('schedule', 'ScheduleController', $routes);
 	_routeInstance('admin-shift', 'AdminShiftController', $routes);
 	_routeInstance('payroll', 'PayrollController', $routes);
-	_routeInstance('leave', 'LeaveController', $routes);
+	_routeInstance('leave', 'LeaveController', $routes, [
+		'approve' => 'approve',
+		'admin-approval' => 'adminApproval',
+		'summary' => 'leaveSummary',
+		'user'    => 'userCredit'
+	]);
+	_routeInstance('leave-point', 'LeavePointController', $routes);
 	_routeInstance('attendance', 'AttendanceController', $routes, [
 		'approval' => 'approval'
 	]);

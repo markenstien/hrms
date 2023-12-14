@@ -1,10 +1,7 @@
 <?php build('content') ?>
     <div class="container-fluid">
         <?php echo wControlButtonRight('Attendance Management',[
-            $navigationHelper->setNav('', 'File AC', _route('attendance:create')),
-            $navigationHelper->setNav('', 'Leave', _route('attendance:create', [
-                'type' => 'Leave'
-            ]))
+            $navigationHelper->setNav('', 'File AC', _route('attendance:create'))
         ]);?>
         <div class="card">
             <?php echo wCardHeader(wCardTitle('Attendance'))?>

@@ -21,6 +21,15 @@
                                     <td><?php echo wLinkDefault(_route('user:edit-credentials', $user->id), 'Edit Credentials')?> 
                                     | <?php echo wLinkDefault(_route('user:edit', $user->id), 'Edit General')?></td>
                                 </tr>
+                                <tr>
+                                    <td><?php echo wLinkDefault(_route('leave:user', $user->id), 'Leave Credits')?></td>
+                                </tr>
+                                
+                                <?php if(isEqual(whoIs('id'), $user->id)) :?>
+                                    <tr>
+                                        <td>Username : <?php echo $user->username?> </td>
+                                    </tr>
+                                <?php endif?>
                             </table>
                         </section>
                     </div>

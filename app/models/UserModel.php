@@ -26,18 +26,24 @@
             $username = $uPrefix. '' .$uid;
             $defaultPassword = '12345';
 
-            if(parent::single([
+            if($duplicateUser = parent::single([
                 'firstname' => $userData['firstname'],
                 'lastname'  => $userData['lastname'],
                 'birthdate' => $userData['birthdate'],
                 'gender'    => $userData['gender']
             ])) {
-                $this->addError("User Already exists in the system.");
+                $link = wLinkDefault(_route('user:show', $duplicateUser->id), 'Show User');
+
+                $this->addError("User Already exists in the system. {$link}");
                 return false;
             }
 
             $userFillableColumns['username'] = $username;
             $userFillableColumns['password'] = $defaultPassword;
+
+            if(!$this->validate($userFillableColumns)) {
+                return false;
+            }
             $userId = parent::store($userFillableColumns);
 
             if(!$userId) {
@@ -225,6 +231,58 @@
                 'password' => $newPassword
             ], $userId);
         }
+
+        private function validate(&$user_data , $id = null)
+		{	
+			if(!empty($user_data['email']))
+			{
+				$is_exist = $this->getByKey('email' , $user_data['email'])[0] ?? '';
+
+				if( $is_exist && !isEqual($is_exist->id , $id) ){
+					$this->addError("Email {$user_data['email']} already used");
+					return false;
+				}
+			}
+
+			if(!empty($user_data['username']))
+			{
+				$is_exist = $this->getByKey('username' , $user_data['username'])[0] ?? '';
+
+				if( $is_exist && !isEqual($is_exist->id , $id) ){
+					$this->addError("Username {$user_data['email']} already used");
+					return false;
+				}
+			}
+
+			if(!empty($user_data['mobile_number']))
+			{
+				$user_data['mobile_number'] = str_to_mobile($user_data['mobile_number']);
+
+				if( !is_mobile_number($user_data['mobile_number']) ){
+					$this->addError("Invalid Phone Number {$user_data['mobile_number']}");
+					return false;
+				}
+
+				$is_exist = $this->getByKey('mobile_number' , $user_data['mobile_number'])[0] ?? '';
+
+				if( $is_exist && !isEqual($is_exist->id , $id) ){
+					$this->addError("Mobile Number {$user_data['mobile_number']} already used");
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+        public function getByKey($column , $key , $order = null)
+		{
+			if( is_null($order) )
+				$order = $column;
+
+			return parent::getAssoc($column , [
+				$column => "{$key}"
+			]);
+		}
 
         private function convertGoviIds($postData) {
             $govIds = [];
@@ -867,19 +925,25 @@
         // }
 
         public function get($id) {
-            $user = $this->getAll([
-                'where' => ['user.id' => $id]
-            ])[0] ?? false;
+            if(is_array($id)) {
+                $user = $this->getAll([
+                    'where' => $id
+                ])[0] ?? false;
+            } else {
+                $user = $this->getAll([
+                    'where' => ['user.id' => $id]
+                ])[0] ?? false;
+            }
             
             if(!$user)
                 return false;
-            
+
             if(!isset($this->govIDModel)) {
                 $this->govIDModel = model('EmployeeGovIDModel');
             }
 
             if($govIds = $this->extractGovIds($this->govIDModel->all([
-                'user_id' => $id
+                'user_id' => $user->id
             ]))) {
                 $user->sss_number = $govIds['sss_number'];
                 $user->phil_health_number = $govIds['phil_health_number'];

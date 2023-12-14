@@ -20,7 +20,6 @@
                 'limit' => 10,
                 'order' => 'id desc'
             ]);
-
             return $this->view('attendance/index', $this->data);
         }
 

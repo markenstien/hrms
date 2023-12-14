@@ -5,8 +5,14 @@
 
         foreach($links as $key => $row) {
             $icon = $row['attributes']['icon'] ?? 'fas fa-plus-circle';
+            $linkAttributes = '';
+            
+            if(!empty($row['attributes']['link-attributes'])) {
+                $linkAttributes .= keypair_to_str($row['attributes']['link-attributes']);
+            }
+            
             $linkString .= <<<EOF
-                <a href="{$row['url']}" class="btn btn-primary btn-sm bg-gradient-primary rounded-0 btn-icon-split mb-0">
+                <a href="{$row['url']}" class="btn btn-primary btn-sm bg-gradient-primary rounded-0 btn-icon-split mb-0" {$linkAttributes}>
                     <span class="icon text-white-600">
                         <i class="{$icon}"></i>
                     </span>

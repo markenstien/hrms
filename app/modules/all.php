@@ -11,4 +11,50 @@
         ]
     ];
 
+    $module['common'] = [
+        'importance-status' => ['LOW','MID','HIGH','CRITICAL']
+    ];
+
+    $module['user'] = [
+        'types' => [
+            'Staff',
+            'Administrator',
+            'Sub-Administrator'
+        ]
+    ];
+
+    $module['timesheet'] = [
+        'sheet_categories' => [
+            'REGULAR',
+            'OT'
+        ],
+        'view_type' => [
+            'per_user',
+            'free_list'
+        ]
+    ];
+
+    $module['ee_leave'] = [
+        'categories' => [
+            'Service Incentive Leave',
+            'Sick Leave',
+            'Vacation Leave',
+            'Maternity Leave',
+            'Paternity Leave',
+            'Special Leave'
+        ],
+        'status' => [
+            'pending',
+            'approved',
+            'declined',
+            'cancelled'
+        ],
+
+        'admin-approval-category' => [
+            'Approve With Pay',
+            'Approve Without Pay',
+            'Declined'
+        ]
+    ];
+
     return $module;
