@@ -16,10 +16,19 @@
         }
 
         public function index() {
-            $this->data['attendanceList'] = $this->model->getAll([
-                'limit' => 10,
-                'order' => 'id desc'
-            ]);
+            if(isEqual(whoIs('type'), 'REGULAR_EMPLOYEE')) {
+                $this->data['attendanceList'] = $this->model->getAll([
+                    'order' => 'id desc',
+                    'where' => [
+                        'timesheet.user_id' => whoIs('id')
+                    ]
+                ]);
+            } else {
+                $this->data['attendanceList'] = $this->model->getAll([
+                    'order' => 'id desc'
+                ]);
+            }
+            
             return $this->view('attendance/index', $this->data);
         }
 

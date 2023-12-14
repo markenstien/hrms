@@ -7,7 +7,7 @@
             <?php echo wCardHeader(wCardTitle('Attendance'))?>
             <div class="card-body">
                 <?php
-                    if(true) {
+                    if(!isEqual(whoIs('type'), 'REGULAR_EMPLOYEE')) {
                         echo wLinkDefault(_route('attendance:approval'), 'Approvals');
                     }
                 ?>
