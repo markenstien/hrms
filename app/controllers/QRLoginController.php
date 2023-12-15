@@ -6,9 +6,17 @@
     {
         public function __construct()
         {
+            parent::__construct();
             $this->model = model('LoginSessionModel');
             $this->timelog_meta_model = model('TimelogMetaModel');
             $this->timeCardResponse = new TimeCardResponse();
+        }
+
+        public function viewImage() {
+            // QRTokenService::renewOrCreate('LOGIN_TOKEN');
+            $latestLoginImage = QRTokenService::getLatest('LOGIN_TOKEN');
+            $this->data['lastestLoginImage'] = $latestLoginImage;
+            return $this->view('qr_login/view_image', $this->data);
         }
 
         public function index()

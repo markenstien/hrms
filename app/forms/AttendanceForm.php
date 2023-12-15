@@ -28,9 +28,8 @@
                 'options' => [
                     'label' => 'Entry Type',
                     'option_values' => [
-                        'SHIFT_REGULAR'  => 'AC - (REGULAR SHIFT)',
-                        'OT_REGULAR'     => 'OT - (REGULAR)',
-                        'OT_REST_DAY' => 'RDOT - (REST DAY OVERTIME)'
+                        'SHIFT_REGULAR'  => 'REGULAR SHIFT',
+                        'OT_REGULAR'     => 'OVERTIME'
                     ]
                 ]
             ]);

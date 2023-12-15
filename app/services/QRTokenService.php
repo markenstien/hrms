@@ -52,18 +52,24 @@
 
             $name = random_number(6).'.png';
             //create new path
-            $abspath = PATH_UPLOAD.DS.$name;
-            $srcURL = GET_PATH_UPLOAD.'/'.$name;
+            $abspath = PATH_UPLOAD.DS. 'images/qr/'.$name;
+            $srcURL = GET_PATH_UPLOAD.'/images/qr/'.$name;
+
+            if(!file_exists(PATH_UPLOAD.DS. 'images/qr/')) {
+                mkdir(PATH_UPLOAD.DS. 'images/qr');
+            }
 
             QRcode::png($qrLink, $abspath);
             $path = base64_encode($abspath);
             $srcURL = base64_encode($srcURL);
 
+            $updatedAt = nowMilitary();
+
             if (!$qrToken) {
                 //create
                 $db->query(
-                    "INSERT INTO qr_tokens(category,token,full_path, qr_link, src_url)
-                        VALUES('{$category}','{$token}','{$path}', '{$qrLinkEncoded}', '{$srcURL}')"
+                    "INSERT INTO qr_tokens(category,token,full_path, qr_link, src_url,updated_at)
+                        VALUES('{$category}','{$token}','{$path}', '{$qrLinkEncoded}', '{$srcURL}', '{$updatedAt}')"
                 );
                 $db->execute();
             } else {
@@ -74,7 +80,8 @@
                             token = '{$token}', 
                             full_path = '{$path}',
                             qr_link = '{$qrLinkEncoded}',
-                            src_url = '{$srcURL}'
+                            src_url = '{$srcURL}',
+                            updated_at = '{$updatedAt}'
                             WHERE category = '{$category}' "
                 );
                 $db->execute();

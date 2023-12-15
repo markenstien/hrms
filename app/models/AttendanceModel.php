@@ -31,7 +31,8 @@
 
         }
 
-        public function manualEntry($entryData) {
+        
+        public function manualEntry($entryData, $type = 'manual') {
             $_fillables = parent::getFillablesOnly($entryData);
 
             if(!isset($this->employeeSalaryModel)) {
@@ -64,7 +65,7 @@
                 'duration' => $convertedTimeMinutes,
                 'amount'   => $amount,
                 'status'   => 'pending',
-                'type'     => 'manual',
+                'type'     => $type,
                 'entry_type' => $_fillables['entry_type'],
                 'created_by' => $_fillables['created_by']
             ]);

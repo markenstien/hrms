@@ -71,6 +71,7 @@
 							<th>#</th>
 							<th>User</th>
 							<th>Hours Worked</th>
+							<th>Salary</th>
 							<th>Take home pay</th>
 							<th>Number of days</th>
 							<th>Action</th>
@@ -83,6 +84,7 @@
 									<td><?php echo ++$key?></td>
 									<td><?php echo $row->fullname?></td>
 									<td><?php echo minutesToHours($row->reg_hours_total)?></td>
+									<td><?php echo amountHTML($row->reg_amount_total)?></td>
 									<td><?php echo amountHTML($row->take_home_pay)?></td>
 									<td><?php echo $row->no_of_days?></td>
 									<td>

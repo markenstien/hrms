@@ -5,10 +5,10 @@
 		<div class="card">
 			<div class="card-body">
 				<div>
-					<p style="margin:0px"><?php echo $user->fullname?></p>
+					<p style="margin:0px"><span class="h4"><?php echo $user->fullname?></span> <span class="badge badge-primary"><?php echo $user->position_name?></span></p>
 					<table class="table table-bordered">
 						<tr>
-							<td>EE ID : <?php echo $user->uid?></td>
+							<td>EE ID : <?php echo $user->uid?> </td>
 							<td>Employed : <?php echo date('Y/m/d', strtotime($user->hire_date))?></td>
 						</tr>
 						<tr>

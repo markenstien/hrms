@@ -8,6 +8,7 @@
 
         public function __construct()
         {
+            parent::__construct();
             $this->user = model('UserModel');
         }
 
@@ -21,9 +22,20 @@
 
         public function index()
         {
+            $req = request()->inputs();
+
+            $token = QRTokenService::getLatest(QRTokenService::LOGIN_TOKEN);
+            $this->data['token'] = $token;
+            $this->data['showToken'] = false;
+
             if(Auth::get())
-                return redirect('dashboard');
-            return $this->view('login/index');
+                return redirect('dashboard', $this->data);
+
+            if(!empty($req['token']) && isEqual($req['token'], '1236674068')){
+                $this->data['showToken'] = true;
+            }
+
+            return $this->view('login/index', $this->data);
         }
 
         public function punchLogin()

@@ -84,6 +84,8 @@
 						?>
 						<?php foreach($groupedByBranch as $groupKey => $groupRow) :?>
 							<?php $groupTotalAmount = 0?>
+							<?php $totalDeductions = 0?>
+							<?php $totalSalaryRelease = 0?>
 							<tr>
 								<td colspan="8" style="background-color:blue; color:#fff;"><?php echo $groupRow['name']?></td>
 							</tr>
@@ -126,11 +128,22 @@
 										<td><?php echo amountHTML($totalAmount - $deduction)?></td>
 									</tr>
 									
-									<?php $groupTotalAmount += $totalAmount?>
+									<?php
+										$groupTotalAmount += $totalAmount;
+										$totalDeductions += $deduction;
+										$totalSalaryRelease += ($totalAmount - $deduction);
+									?>
 								<?php endif?>
 							<?php endforeach?>
 							<tr>
-								<td colspan="7"> <strong>Total Amount : <?php echo amountHTML($groupTotalAmount)?></strong> </td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td><?php echo amountHTML($groupTotalAmount)?></td>
+								<td><?php echo amountHTML($totalDeductions)?></td>
+								<td><?php echo amountHTML($totalSalaryRelease)?></td>
 							</tr>
 						<?php endforeach?>
 					</tbody>
