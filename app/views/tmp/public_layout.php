@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SOME TITLE</title>
+  <title>Bitmates</title>
 
   <!-- Custom fonts for this template-->
   <link href="<?php echo _path_public('ui/ui-main/vendor/fontawesome-free/css/all.min.css')?>" rel="stylesheet" type="text/css">
