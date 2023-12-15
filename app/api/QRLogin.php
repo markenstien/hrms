@@ -83,9 +83,16 @@
                 ]);
 
                 if(!empty($req['device']) && isEqual($req['device'], 'web')) {
-                    Flash::set("welcome back, logged in using attendance qr");
-                    $this->userModel->startSession($req['userId']);
-                    return redirect(_route('dashboard:index'));
+
+                    if(empty(whoIs())) {
+                        Flash::set("welcome back, logged in using attendance qr");
+                        $this->userModel->startSession($req['userId']);
+                    } else {
+                        Flash::set("Action Success");
+                    }
+                    $route = empty($req['route']) ? _route('dashboard:index') : unseal($req['route']);
+                    
+                    return redirect($route);
                 }
     
                 echo json_encode([

@@ -32,7 +32,8 @@
 	]);
 	_routeInstance('leave-point', 'LeavePointController', $routes);
 	_routeInstance('attendance', 'AttendanceController', $routes, [
-		'approval' => 'approval'
+		'approval' => 'approval',
+		'logged-in' => 'loggedIn'
 	]);
 
 	_routeInstance('attachment', 'Attachment', $routes);

@@ -100,4 +100,11 @@
             $this->data['form'] = $this->form;
             return view('attendance/create', $this->data);
         }
+
+        public function loggedIn() {
+            $this->data['loggedUsers'] = $this->timelogPlusModel->getOngoing();
+            $this->data['QRTokenService'] = new QRTokenService;
+            $this->data['token'] = QRTokenService::getLatestToken(QRTokenService::LOGIN_TOKEN);
+            return $this->view('attendance/logged_in', $this->data);
+        }
     }

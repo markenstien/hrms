@@ -4,6 +4,30 @@
     {
         public $table = 'timelogs';
         
+        public function getOngoing() {
+            $this->db->query(
+                "SELECT user.id as user_id, concat(user.firstname, ' ',user.lastname) as fullname,
+                    user.uid, position.position_name, department.branch as department_name,
+                    tlogs.clock_in, tlogs.clock_out, tlogs.id as id
+                    
+                    FROM {$this->table} as tlogs
+                        LEFT JOIN users as user 
+                            ON tlogs.user_id = user.id
+
+                        LEFT JOIN employee_datas as eed 
+                            ON eed.user_id = user.id
+
+                        LEFT JOIN branches as department
+                            ON department.id = eed.department_id
+
+                        LEFT JOIN positions as position
+                            ON position.id = eed.position_id
+
+                        WHERE tlogs.clock_out is null"
+            );
+
+            return $this->db->resultSet();
+        }
         /**
          * userId
          * device

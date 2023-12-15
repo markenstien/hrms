@@ -2,16 +2,19 @@
     <div class="container-fluid">
         <?php  
             $showAttendance = true;
+            $buttons = [];
             if(isEqual(whoIs('type'), 'REGULAR_EMPLOYEE') && isEqual($timelog['action'],'logout')) {
-                $showAttendance = false;
+                
+            } else {
+                $buttons[] = $navigationHelper->setNav('', 'File AC', _route('attendance:create'));
             }
-            if($showAttendance) {
-                wControlButtonRight('Attendance Management',[
-                    $navigationHelper->setNav('', 'File AC', _route('attendance:create'))
+
+            if(isEqual(whoIs('type'), ['SUPERADMIN','ADMIN','HR'])) {
+                $buttons[] = $navigationHelper->setNav('', 'On Duty', _route('attendance:logged-in'), [
+                    'icon' => 'fas fa-list'
                 ]);
             }
-            
-        
+            echo wControlButtonRight('Attendance Management', $buttons);
         ?>
         <div class="card">
             <?php echo wCardHeader(wCardTitle('Attendance'))?>
