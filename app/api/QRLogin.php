@@ -10,19 +10,19 @@
             $this->timelogPlusModel = model('TimelogPlusModel');
         }
         public function renew() {
-            $recentToken = QRTokenService::getLatest('LOGIN_TOKEN');
+            $recentToken = QRTokenService::getLatest(QRTokenService::LOGIN_TOKEN);
 
             if(!$recentToken) {
-                QRTokenService::renewOrCreate('LOGIN_TOKEN');
+                QRTokenService::renewOrCreate(QRTokenService::LOGIN_TOKEN);
             } else {
                 $lastUpdated = strtotime($recentToken->updated_at);
                 $timeToday = strtotime(nowMilitary());
                 $hours = (($lastUpdated - $timeToday) / 60) /60;
 
                 if($hours >= 12) {
-                    QRTokenService::renewOrCreate('LOGIN_TOKEN');
+                    QRTokenService::renewOrCreate(QRTokenService::LOGIN_TOKEN);
                     //update if changed
-                    $recentToken = QRTokenService::getLatest('LOGIN_TOKEN');
+                    $recentToken = QRTokenService::getLatest(QRTokenService::LOGIN_TOKEN);
                 }
             }
 
@@ -39,15 +39,26 @@
                 return false;
             }
 
-            $this->timelogPlusModel->log([
-                'userId' => $req['userId'],
-                'device' => 'web'
-            ]);
+            $token = QRTokenService::getLatestToken(QRTokenService::LOGIN_TOKEN);
 
-            echo json_encode([
-                'success' => true,
-                'data' => $this->timelogPlusModel->getMessages()
-            ]);
+            if(isEqual($token, $req['token'])) {
+                $this->timelogPlusModel->log([
+                    'userId' => $req['userId'],
+                    'device' => 'web'
+                ]);
+    
+                echo json_encode([
+                    'success' => true,
+                    'data' => $this->timelogPlusModel->getMessages()
+                ]);
+            } else{
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'QRCode Expired, unable to login'
+                ]);
+            }
+
+            
         }
 
         public function getAction() {

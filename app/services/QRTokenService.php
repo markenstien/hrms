@@ -47,7 +47,7 @@
             if(file_exists($abspath)) {
                 unlink($abspath);
             }
-            $qrLink = URL.'/api/Authentication/QR_AUTH_LOADER?token='.$token;
+            $qrLink = URL.'/api/QRLogin/log?token='.$token;
             $qrLinkEncoded = base64_encode($qrLink);
 
             $name = random_number(6).'.png';
