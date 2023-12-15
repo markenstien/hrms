@@ -66,7 +66,7 @@
                     $this->data['actionURL'] = QRTokenService::getLink(QRTokenService::LOGIN_TOKEN,[
                         'token' => $token,
                         'device' => 'web',
-                        'userId' => whoIs('id')
+                        'userId' => $user->id
                     ]);
 
                     return $this->view('qr_login/log', $this->data);
