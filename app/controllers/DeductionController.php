@@ -2,6 +2,9 @@
 
 	class DeductionController extends Controller
 	{
+		public $deductionItemModel,
+		$model;
+
 		public function __construct() {
 			parent::__construct();
 			$this->model = model('DeductionModel');
