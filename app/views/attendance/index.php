@@ -1,11 +1,32 @@
 <?php build('content') ?>
     <div class="container-fluid">
-        <?php echo wControlButtonRight('Attendance Management',[
-            $navigationHelper->setNav('', 'File AC', _route('attendance:create'))
-        ]);?>
+        <?php  
+            $showAttendance = true;
+            if(isEqual(whoIs('type'), 'REGULAR_EMPLOYEE') && isEqual($timelog['action'],'logout')) {
+                $showAttendance = false;
+            }
+            if($showAttendance) {
+                wControlButtonRight('Attendance Management',[
+                    $navigationHelper->setNav('', 'File AC', _route('attendance:create'))
+                ]);
+            }
+            
+        
+        ?>
         <div class="card">
             <?php echo wCardHeader(wCardTitle('Attendance'))?>
             <div class="card-body">
+                <?php if(isEqual($timelog['action'],'logout')) : ?>
+                    <div class="alert alert-primary">
+                        <div class="alert-div">
+                            <p>You are currently logged in : <span id="clockIn"><?php echo $timelog['last']->clock_in?></span>
+                            <span id="duration" class="badge badge-warning"></span></p>
+
+                            <?php echo wLinkDefault($timelog['urlAction'], 'Logout')?>
+                        </div>
+                    </div>
+                <?php endif?>
+
                 <?php
                     if(!isEqual(whoIs('type'), 'REGULAR_EMPLOYEE')) {
                         echo wLinkDefault(_route('attendance:approval'), 'Approvals');
@@ -72,5 +93,22 @@
             </div>
         </div>
     </div>
+<?php endbuild()?>
+
+<?php build('scripts') ?>
+    <script>
+        $(document).ready(function(){
+
+            setInterval(function() {
+                let differenceInMinutes = dateDifferenceInMinutes($('#clockIn').html());
+                let differenceText = minutesToHours(differenceInMinutes);
+                $("#duration").html(differenceText);
+
+                //every 1 sec
+            }, 1000);
+            
+        })
+
+    </script>
 <?php endbuild()?>
 <?php loadTo('tmp/admin_layout')?>

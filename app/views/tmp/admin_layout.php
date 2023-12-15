@@ -124,6 +124,8 @@ z      <!-- Core plugin JavaScript-->
       <script src="<?php echo _path_public('ui/ui-main/vendor/datatables/jquery.dataTables.min.js')?>"></script>
       <script src="<?php echo _path_public('ui/ui-main/vendor/datatables/dataTables.bootstrap4.min.js')?>"></script>
       <script src="<?php echo _path_public('ui/ui-main/js/demo/datatables-demo.js')?>"></script>
+      <script src="<?php echo _path_public('js/core.js')?>"></script>
+      <script src="<?php echo _path_public('js/global.js')?>"></script>
       <?php produce('scripts') ?>
       </body>
 </html>

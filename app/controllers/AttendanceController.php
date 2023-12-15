@@ -1,5 +1,8 @@
 <?php
     use Form\AttendanceForm;
+    use Services\QRTokenService;
+
+    load(['QRTokenService'], SERVICES);
     load(['AttendanceForm'], FORMS);
 
     class AttendanceController extends Controller
@@ -11,6 +14,7 @@
             parent::__construct();
             $this->form = new AttendanceForm();
             $this->model = model('AttendanceModel');
+            $this->timelogPlusModel = model('TimelogPlusModel');
 
             $this->data['form'] = $this->form;
         }
@@ -29,6 +33,20 @@
                 ]);
             }
             
+            $lastLog = $this->timelogPlusModel->getLastLog(whoIs('id'));
+            $timelogAction = $this->timelogPlusModel->typeOfAction($lastLog);
+
+            $loginToken = QRTokenService::getLatestToken(QRTokenService::LOGIN_TOKEN);
+            $this->data['timelog'] = [
+                'action' => $timelogAction,
+                'last' => $lastLog,
+                'urlAction' => QRTokenService::getLink($loginToken, [
+                    'token' => $loginToken,
+                    'device' => 'web',
+                    'userId' => whoIs('id')
+                ])
+            ];
+
             return $this->view('attendance/index', $this->data);
         }
 

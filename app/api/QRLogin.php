@@ -8,6 +8,7 @@
         {
             parent::__construct();
             $this->timelogPlusModel = model('TimelogPlusModel');
+            $this->userModel = model('UserModel');
         }
         public function renew() {
             $recentToken = QRTokenService::getLatest(QRTokenService::LOGIN_TOKEN);
@@ -35,8 +36,42 @@
             $req = request()->inputs();
 
             if(empty($req['userId'])) {
-                _error("Invalid Request");
-                return false;
+                if(isSubmitted()) {
+                    $errors = '';
+                    $post = request()->posts();
+                    $user = $this->userModel->get([
+                        'user.username' => $post['username']
+                    ]);
+
+                    if(!$user) {
+                        $errors = "user not found";
+                    } else {
+                        if(!isEqual($user->password, $post['password'])) {
+                            $errors = "invalid password";
+                        }
+                    }
+
+                    if(!empty($errors)) {
+                        $this->data['errors'] = $errors;
+                        return $this->view('qr_login/log', $this->data);
+                    }
+
+                    $lastLog = $this->timelogPlusModel->getLastLog($user->id);
+                    $typeOfAction = $this->timelogPlusModel->typeOfAction($lastLog);
+
+                    $this->data['lastLog'] = $lastLog;
+                    $this->data['typeOfAction'] = $typeOfAction;
+
+                    $token = QRTokenService::getLatestToken(QRTokenService::LOGIN_TOKEN);
+                    $this->data['actionURL'] = QRTokenService::getLink(QRTokenService::LOGIN_TOKEN,[
+                        'token' => QRTokenService::LOGIN_TOKEN,
+                        'device' => 'web',
+                        'userId' => whoIs('id')
+                    ]);
+
+                    return $this->view('qr_login/log', $this->data);
+                }
+                return $this->view('qr_login/log', $this->data);
             }
 
             $token = QRTokenService::getLatestToken(QRTokenService::LOGIN_TOKEN);
@@ -46,6 +81,12 @@
                     'userId' => $req['userId'],
                     'device' => 'web'
                 ]);
+
+                if(!empty($req['device']) && isEqual($req['device'], 'web')) {
+                    Flash::set("welcome back, logged in using attendance qr");
+                    $this->userModel->startSession($req['userId']);
+                    return redirect(_route('dashboard:index'));
+                }
     
                 echo json_encode([
                     'success' => true,

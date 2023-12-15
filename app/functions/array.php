@@ -187,7 +187,7 @@
 
 
     /*NNWWW REPLACE key_pair_to_str function*/
-    function keypairtostr($arr , $separator = null , $rowSeparator = null , $valueWrapper = null)
+    function keypairtostr($arr , $separator = null , $rowSeparator = null , $valueWrapper = null, $noSpace = false)
     {
         $strArr = '';
 
@@ -197,14 +197,22 @@
 
         if( is_null($separator))
             $separator = '=';
-
-        $arrCount = count($arr);
-
+        $counter = 0;
         foreach($arr as $key => $value)
         {
-            $strArr .= " {$key} {$separator} {$valueWrapper}{$value}{$valueWrapper}";
-                if(!is_null($rowSeparator))
+            $counter++;
+            if($noSpace) {
+                $strArr .= "{$key}{$separator}{$valueWrapper}{$value}{$valueWrapper}";
+            } else {
+                $strArr .= " {$key} {$separator} {$valueWrapper}{$value}{$valueWrapper}";
+            }
+            if(!is_null($rowSeparator)) {
+                if((count($arr) - $counter) == 0) {
+
+                } else {
                     $strArr .= "$rowSeparator";
+                }
+            }
         }
         return $strArr;
     }

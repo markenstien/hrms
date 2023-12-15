@@ -29,6 +29,14 @@
             return $db->single() ?? false;
         }
 
+        public static function getLink($category, $params = []) {
+            if(!empty($params)) {
+                $paramsString = keypairtostr($params,'=','&','',true);
+                return URL.'/api/QRLogin/log?'.$paramsString;
+            }
+            return URL.'/api/QRLogin/log';
+        }
+
         public static function renewOrCreate($category) {
             require_once LIBS.DS.'phpqrcode'.DS.'qrlib.php';
             $db = Database::getInstance();
@@ -47,7 +55,7 @@
             if(file_exists($abspath)) {
                 unlink($abspath);
             }
-            $qrLink = URL.'/api/QRLogin/log?token='.$token;
+            $qrLink = self::getLink(self::LOGIN_TOKEN).'?token='.$token;
             $qrLinkEncoded = base64_encode($qrLink);
 
             $name = random_number(6).'.png';
