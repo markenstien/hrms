@@ -64,7 +64,7 @@
 
                     $token = QRTokenService::getLatestToken(QRTokenService::LOGIN_TOKEN);
                     $this->data['actionURL'] = QRTokenService::getLink(QRTokenService::LOGIN_TOKEN,[
-                        'token' => QRTokenService::LOGIN_TOKEN,
+                        'token' => $token,
                         'device' => 'web',
                         'userId' => whoIs('id')
                     ]);
