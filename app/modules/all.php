@@ -57,4 +57,12 @@
         ]
     ];
 
+    $module['recruitment'] = [
+        'statusList' => [
+            'passed' => 'Passed',
+            'failed' => 'Failed',
+            'on-processed' => 'Currently Processing'
+        ]
+    ];
+
     return $module;

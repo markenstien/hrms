@@ -6,8 +6,8 @@
 
         public function __construct()
         {
-            $this->moduleRestrict();
-            // $this->loadNavs();
+            // $this->moduleRestrict();
+            $this->loadNavs();
         }
 
         public function getNavsHTML() {
@@ -32,54 +32,74 @@
             }
             return $retValHTML;
         }
+        
 
         public function loadNavs() {
+            $whoIs = whoIs();
+
+            if($whoIs) {
+                $moduleGroup = $this->moduleGroup();
+
+                foreach($moduleGroup as $modKey => $modRow) {
+                    $modRowItems = $modRow['items'];
+                    foreach($modRowItems as $itemKey => $itemVal) {
+                        $regExp = explode('|', $itemVal);
+                        $url = _route("{$regExp[0]}:{$regExp[1]}");
+                        $icon = $regExp[3] ?? '';
+
+                        $this->addNavigation($modKey, $regExp[2], $url, [
+                            'icon' => $icon
+                        ]);
+                    }
+                }
+            }
+
             
-            $this->addNavigationBulk('Main', [
-                [
-                    'Dashboard',
-                    _route('dashboard:index')
-                ]
-            ]);
+            // $this->addNavigationBulk('Main', [
+            //     [
+            //         'Dashboard',
+            //         _route('dashboard:index')
+            //     ]
+            // ]);
 
 
-            $this->addNavigationBulk('Master', [
-                [
-                    'Position',
-                    _route('position:index')
-                ],
-                [
-                    'Department',
-                    _route('department:index')
-                ],
-                [
-                    'Schedule',
-                    _route('admin-shift:index')
-                ],
-                [
-                    'Employee',
-                    _route('user:index')
-                ]
-            ]);
+            // $this->addNavigationBulk('Master', [
+            //     [
+            //         'Position',
+            //         _route('position:index')
+            //     ],
+            //     [
+            //         'Department',
+            //         _route('department:index')
+            //     ],
+            //     [
+            //         'Schedule',
+            //         _route('admin-shift:index')
+            //     ],
+            //     [
+            //         'Employee',
+            //         _route('user:index')
+            //     ]
+            // ]);
 
-            $this->addNavigationBulk('Underdevelopment', [
-                [
-                    'Attendance',
-                    _route('attendance:index')
-                ],
-                [
-                    'Payroll',
-                    _route('payroll:index')
-                ],
-                [
-                    'Deductons',
-                    _route('deduction:index')
-                ],
-                [
-                    'Leave Management',
-                    _route('leave:index')
-                ]
-            ]);
+            // $this->addNavigationBulk('Underdevelopment', [
+            //     [
+            //         'Attendance',
+            //         _route('attendance:index')
+            //     ],
+            //     [
+            //         'Payroll',
+            //         _route('payroll:index')
+            //     ],
+            //     [
+            //         'Deductons',
+            //         _route('deduction:index')
+            //     ],
+            //     [
+            //         'Leave Management',
+            //         _route('leave:index')
+            //     ]
+            // ]);
         }
 
         private function moduleRestrict() {
@@ -87,7 +107,6 @@
 
             if($whoIs) {
                 $userTypeAccess = $this->userModuleAccess();
-                $accessSession = [];
                 $modelGroup = $this->moduleGroup();
 
                 if($userAccess = $userTypeAccess[strtolower($whoIs['type'])]) {
@@ -191,7 +210,8 @@
                     'items' => [
                         'attendance|index|Attendance',
                         'payroll|index|Payroll',
-                        'leave|index|Leave'
+                        'leave|index|Leave',
+                        'recruitment|index|Recruitment'
                     ]
                 ]
             ];

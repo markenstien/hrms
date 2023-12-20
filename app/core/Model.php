@@ -412,7 +412,7 @@
 	/**
 	 * 
 	 */
-	final public function _getCount($condition = null, $field = 'id') {
+	final public function _getCount($condition = null, $field = '*') {
 
 		if(!is_null($condition)) {
 			$condition = $this->convertWhere($condition);

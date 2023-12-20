@@ -36,10 +36,14 @@
 		'logged-in' => 'loggedIn'
 	]);
 
-	_routeInstance('attachment', 'Attachment', $routes);
+	_routeInstance('recruitment', 'RecruitmentController', $routes);
+	_routeInstance('recruitment-interviews', 'RecruitmentInterviewController', $routes);
 	_routeInstance('deduction', 'DeductionController', $routes, [
 		'deduction' => 'deductions'
 	]);
+
+
+	_routeInstance('attachment', 'Attachment', $routes);
 
 
 	$routes['auth'] = [
