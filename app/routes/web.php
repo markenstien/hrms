@@ -37,11 +37,14 @@
 	]);
 
 	_routeInstance('recruitment', 'RecruitmentController', $routes);
+
 	_routeInstance('recruitment-interviews', 'RecruitmentInterviewController', $routes);
+
 	_routeInstance('deduction', 'DeductionController', $routes, [
 		'deduction' => 'deductions'
 	]);
 
+	_routeInstance('holiday', 'HolidayController', $routes);
 
 	_routeInstance('attachment', 'Attachment', $routes);
 

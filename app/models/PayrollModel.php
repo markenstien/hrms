@@ -96,11 +96,17 @@
 			$timesheets = $this->timeSheetModel->getAll($dataFilter, "day(tklog.time_in) asc", null);
 			$groupedByUsers =  $this->timeSheetModel->groupSheetsByUser($timesheets);
 
+			$holidays = $this->getHolidays($payroll->start_date, $payroll->end_date);
+
 			foreach($groupedByUsers as $key => $user) {
 				$usersTimesheets = $user['timesheets'];
 				$regTotalAmount = 0;
 				$daysOfWork = 0;
 				$regTotalWorkHours = 0;
+				$uid = $user['uid'];
+				$ratePerDay = $user['rate_per_day'];
+
+				$takeHomePay = 0;
 
 				if(!empty($usersTimesheets)) {
 
@@ -130,7 +136,6 @@
 	             			]
 	             		]);
 						
-
 	             		if($deductions) 
 	             		{
 	             			$payrollDeductions = [];
@@ -146,11 +151,34 @@
 	             			}
 
 	             			$paramsData['deduction_notes'] = json_encode($payrollDeductions);
-	             			$paramsData['take_home_pay'] = $regTotalAmount - $payrollDeductionAmount;
+							$takeHomePay = $regTotalAmount - $payrollDeductionAmount;
 	             		} else {
 	             			$paramsData['deduction_notes'] = '';
-	             			$paramsData['take_home_pay'] = $regTotalAmount;
+							$takeHomePay = $regTotalAmount;
 	             		}
+
+
+						if($holidays) {
+							$payrollBonus = [];
+							$payrolBonusAmount = 0;
+
+							foreach($holidays as $hlKey => $hlRow) {
+								$payrollBonus [] = [
+									'code' => $hlRow->holiday_name_abbr,
+									'name' => $hlRow->holiday_name,
+									'amount' => $ratePerDay
+								];
+
+								$payrolBonusAmount += $ratePerDay;
+							}
+
+							$paramsData['bonus_notes'] = json_encode($payrollBonus);
+							$takeHomePay += $payrolBonusAmount;
+						} else {
+							$takeHomePay = $regTotalAmount;
+						}
+
+					$paramsData['take_home_pay'] = $takeHomePay;
 
 					$isOkay = $this->payrollItemModel->release($paramsData);
 
@@ -201,6 +229,21 @@
 			}
 
 			return parent::delete($id);
+		}
+
+		public function getHolidays($startDate, $endDate) {
+			if(!isset($this->holidayModel)) {
+				$this->holidayModel = model('HolidayModel');
+			}
+
+			return $this->holidayModel->getAll([
+				'where' => [
+					'holiday_date' => [
+						'condition' => 'between',
+						'value' => [$startDate, $endDate]
+					]
+				]
+			]);
 		}
 
 	}

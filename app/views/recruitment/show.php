@@ -1,5 +1,8 @@
 <?php build('content') ?>
 <div class="container-fluid">
+    <?php echo wControlButtonLeft('Recruitment', [
+        $navigationHelper->setNav('', 'Back', _route('recruitment:index'))
+    ])?>
     <div class="card">
         <?php echo wCardHeader(wCardTitle('Candidate Details'))?>
         <div class="card-body">
@@ -57,21 +60,12 @@
                             </div>
                             <div class="card-body">
                                 <?php foreach($seriesOfInterview as $key => $row): ?>
-                                    <?php foreach($interviews as $intKey => $intRow) :?>
-                                        <?php if($intRow->interview_title == $row['name']) :?>
-                                            <?php echo wLinkDefault(_route('recruitment-interviews:show', $intRow->id), "{$intRow->interview_title} : {$intRow->result}", [
-                                                'class' => 'btn btn-success'
-                                            ])?>
-                                        <?php else:?>
-                                            <?php echo wLinkDefault(_route('recruitment-interviews:create', $candidate->id, [
-                                                'title' => $row['name'],
-                                                'number' => $row['number']
-                                            ]), 'Start : '.$row['name'], [
-                                                'class' => 'btn btn-primary'
-                                            ])?>
-                                        <?php endif?>
-                                    <?php endforeach?>
-
+                                    <?php echo wLinkDefault(_route('recruitment-interviews:create', $candidate->id, [
+                                            'title' => $row['name'],
+                                            'number' => $row['number']
+                                        ]), 'Start : '.$row['name'], [
+                                            'class' => 'btn btn-primary'
+                                        ])?>
                                 <?php endforeach?>
                             </div>
                         </div>

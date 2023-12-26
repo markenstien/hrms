@@ -33,7 +33,8 @@
         }
 
         public function index() {
-
+            $this->data['recruits'] = $this->recruitmentModel->getAll();
+            return $this->view('recruitment/index', $this->data);
         }
 
         public function create() {
@@ -59,7 +60,12 @@
             $interviews = $this->recruitmentInterviewModel->all([
                 'recruitment_id' => $id
             ]);
-            
+
+            dump([
+                $interviews,
+                $this->data['seriesOfInterview']
+            ]);
+
             $this->data['candidate'] = $candidate;
             $this->data['interviews'] = $interviews;
 

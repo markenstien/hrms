@@ -19,6 +19,7 @@
 				'ot_hours_total' => $params['ot_hours_total'],
 				'no_of_days' => $params['no_of_days'],
 				'deduction_notes' => $params['deduction_notes'],
+				'bonus_notes' => $params['bonus_notes'],
 				'take_home_pay ' => $params['take_home_pay'],
 			]);
 

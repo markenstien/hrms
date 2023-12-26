@@ -6,6 +6,10 @@
     function str_to_number_only($s) {
         return preg_replace("/[^0-9]+/", "", $s);
     }
+
+    function str_to_currency_only($string) {
+        return preg_replace("/[^0-9.]+/", "", $string);
+    }
     
     function bool_convert($bool , $response = ['Yes' , 'No'])
     {

@@ -1,5 +1,5 @@
 <?php build('content') ?>
-<div class="col-md-6 mx-auto">
+<div class="col-md-8 mx-auto">
 	<div class="card">
 		<h1 class="alert alert-primary text-center">FROM TIMESHEETS</h1>
 		<div class="card-header">
@@ -64,6 +64,18 @@
 				</table>
 			</div>
 
+			
+					
+			<?php if($holidays) :?>
+				<section class="mb-2 mt-2">
+					<h4>Holidays Found for this payrol</h4>
+					<?php foreach($holidays as $key => $row) :?>
+						<div style="border: 1px solid #000; padding:10px"><?php echo $row->holiday_name?> | <?php echo Module::get('holidays')['workTypeList'][$row->holiday_work_type]?>
+						| <?php echo Module::get('holidays')['payTypeList'][$row->holiday_pay_type]?></div>
+					<?php endforeach?>
+				</section>
+			<?php endif?>
+
 			<h4>Salaries to Distribute</h4>
 			<div class="table-responsive">
 				<table class="table table-bordered">
@@ -71,9 +83,10 @@
 						<th>#</th>
 						<th>Employee</th>
 						<th>Rate</th>
-						<th>Total Worked Hours</th>
-						<th>Days of work</th>
+						<th><span title="Total Worked Hours">TWH</span></th>
+						<th><span title="Days of work">DOW</span></th>
 						<th>Earning</th>
+						<th>Bonus</th>
 						<th>Deductions</th>
 						<th>Salary</th>
 					</thead>
@@ -86,18 +99,22 @@
 							<?php $groupTotalAmount = 0?>
 							<?php $totalDeductions = 0?>
 							<?php $totalSalaryRelease = 0?>
+							<?php $totalSalaryRelease = 0?>
 							<tr>
-								<td colspan="8" style="background-color:blue; color:#fff;"><?php echo $groupRow['name']?></td>
+								<td colspan="9" style="background-color:blue; color:#fff;"><?php echo $groupRow['name']?></td>
 							</tr>
 							<?php $timesheetsGroupedByUser = $groupRow['users'];?>
 
 							<?php foreach($timesheetsGroupedByUser as $key => $row):?>
-								<?php $timesheets = $row['timesheets']?>
-								<?php
+								<?php 
+									$timesheets = $row['timesheets'];
+									$ratePerDay = $row['rate_per_day'];
+
 									$totalWorkHours = 0;
 									$daysOfWork = 0;
 									$totalAmount = 0;
 									$deduction = 0;
+									$bonus = 0;
 								?>
 
 								<?php if(!empty($timesheets)) :?>
@@ -106,11 +123,24 @@
 									?>
 									<tr>
 										<td><?php echo ++$counter?></td>
-										<td><?php echo $row['fullname']?></td>
-										<td><?php echo $row['rate_per_hour']?></td>
+										<td><?php echo $row['fullname'] . '('.$row['uid'].')'?></td>
+										<td><?php echo amountHTML($ratePerDay)?></td>
 										<td><?php echo minutesToHours($totalWorkHours)?></td>
 										<td><?php echo $daysOfWork?></td>
 										<td><?php echo amountHTML($totalAmount)?></td>
+										<td>
+											<?php if(!empty($holidays)) :?>
+												<?php foreach($holidays as $hlKey => $hlRow) :?>
+													<?php if(isEqual($hlRow->holiday_pay_type, 'paid') 
+														&& isEqual($hlRow->holiday_work_type, 'non_working')) :?>
+														<?php $bonus += $ratePerDay?>
+														<span class="badge badge-success" title="<?php echo $hlRow->holiday_name?>">PAID</span>
+													<?php endif?>
+												<?php endforeach?>
+											<?php else:?>
+												<?php echo 'NA'?>
+											<?php endif?>
+										</td>
 										<td>
 											<?php
 												if(!empty($row['deductions'])) {
@@ -121,29 +151,30 @@
 														</span>
 													<?php endforeach;
 												} else {
-													echo 'NONE';
+													echo 'NA';
 												}
 											?>
 										</td>
-										<td><?php echo amountHTML($totalAmount - $deduction)?></td>
+										<td><?php echo amountHTML(($totalAmount + $bonus) - $deduction)?></td>
 									</tr>
 									
 									<?php
 										$groupTotalAmount += $totalAmount;
 										$totalDeductions += $deduction;
-										$totalSalaryRelease += ($totalAmount - $deduction);
+										$totalSalaryRelease += (($totalAmount + $bonus) - $deduction);
 									?>
 								<?php endif?>
 							<?php endforeach?>
 							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td><?php echo amountHTML($groupTotalAmount)?></td>
-								<td><?php echo amountHTML($totalDeductions)?></td>
-								<td><?php echo amountHTML($totalSalaryRelease)?></td>
+								<td><!-- # --></td>
+								<td><!-- EMPLOYEE --></td>
+								<td><!-- Rate --></td>
+								<td><!-- TWH --></td>
+								<td><!-- DOW --></td>
+								<td><!-- EARNING --><?php echo amountHTML($groupTotalAmount)?></td>
+								<td><!-- BONUS --></td>
+								<td><!-- DEDUCTIONS --><?php echo amountHTML($totalDeductions)?></td>
+								<td><!-- TOTAL SALARY --><?php echo amountHTML($totalSalaryRelease)?></td>
 							</tr>
 						<?php endforeach?>
 					</tbody>

@@ -25,9 +25,12 @@
 		}
 
 		public function create() {
+			$message = '';
+
 			if(isSubmitted()) {
 				$post = request()->posts();
-
+				$holidays = $this->model->getHolidays($post['start_date'], $post['end_date']);
+				
 				$isOkay = $this->model->create($post);
 
 				if(!$isOkay) {
@@ -35,7 +38,11 @@
 					return request()->return();
 				}
 
-				Flash::set("Payroll Created");
+				if(!empty($holidays)) {
+					$message = "Holidays has been found for this payroll, ";	
+				}
+				$message .= "Payroll Created";
+				Flash::set($message);
 				return redirect('PayrollController/show/'.$this->model->_getRetval('payrollId'));
 			}
 
@@ -119,7 +126,8 @@
 				'groupedByBranch' => $groupedByBranch,
 				'totalSalaryAmount' => $totalSalaryAmount,
 				'totalUsers' => $totalUsers,
-				'CommonService' => $this->CommonService
+				'CommonService' => $this->CommonService,
+				'holidays' => $this->model->getHolidays($payroll->start_date, $payroll->end_date)
 			];
 
 			return $this->view('payroll/show', $data);
@@ -206,7 +214,8 @@
 					'item.user_id' => $userId
 				]
 			])[0] ?? false;
-			
+
+
 			$user = $this->userModel->get($payslip->user_id);
 
 			$data = [

@@ -31,4 +31,33 @@
             
             return $candidateId;
         }
+
+        public function getAll($params = []) {
+            $where = null;
+            $order = null;
+            $limit = null;
+
+            if(!empty($params['where'])) {
+                $where = " WHERE " . parent::convertWhere($params['where']);
+            }
+
+            if(!empty($params['order'])) {
+                $order = " ORDER BY ".$params['order'];
+            }
+
+            if(!empty($params['limit'])) {
+                $limit = " LIMIT ".$params['limit'];
+            }
+
+            $this->db->query(
+                "SELECT recruit.*,
+                    position_name
+                    FROM {$this->table} as recruit
+                    LEFT JOIN positions as position
+                        ON position.id = recruit.position_id
+                    {$where} {$order} {$limit}"
+            );
+
+            return $this->db->resultSet();
+        }
     }

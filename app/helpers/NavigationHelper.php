@@ -209,6 +209,7 @@
                     'label' => 'HR',
                     'items' => [
                         'attendance|index|Attendance',
+                        'holiday|index|Holiday',
                         'payroll|index|Payroll',
                         'leave|index|Leave',
                         'recruitment|index|Recruitment'

@@ -156,7 +156,9 @@
             $employeSalaryData = $employeeSalaryModel->getFillablesOnly($userData);
             $employeSalaryData['user_id'] = $userId;
 
-            $isEmployeeActionOk = $employeeSalaryModel->addOrUpdate($employeSalaryData);
+            $isEmployeeActionOk = $employeeSalaryModel->addOrUpdate($employeSalaryData, [
+                'user_id' => $userId
+            ]);
 
             if(!$isEmployeeActionOk) {
                 $this->addError("Employee Action failed");

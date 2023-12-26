@@ -28,7 +28,14 @@
 				<div class="row">
 					<div class="col-md-6">
 						<h4>Earnings:</h4>
-						<p>REG WRK HRS | <?php echo minutesToHours($payslip->reg_hours_total)?> | <?php echo amountHTML($payslip->reg_amount_total)?> </p>
+						<p>REG WRK HRS | <?php echo minutesToHours($payslip->reg_hours_total)?> | 
+						<?php echo amountHTML($payslip->reg_amount_total)?> </p>
+
+						<?php if($payslip->bonus_notes) :?>
+							<?php foreach(json_decode($payslip->bonus_notes) as $key => $row) :?>
+								<p><?php echo $row->code?> | <?php echo $row->name?> | <?php echo amountHTML($row->amount)?></p>
+							<?php endforeach?>
+						<?php endif?>
 					</div>
 
 					<?php if($payslip->deduction_notes) :?>

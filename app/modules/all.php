@@ -65,4 +65,15 @@
         ]
     ];
 
+    $module['holidays'] = [
+        'workTypeList' => [
+            'non_working' => 'Non Working Holiday',
+            'working' => 'Working Holiday'
+        ],
+        'payTypeList' => [
+            'paid' => 'Paid Holiday',
+            'unpaid' => 'No Work No Pay Holiday'
+        ],
+    ];
+
     return $module;

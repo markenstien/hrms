@@ -100,6 +100,7 @@
             $this->db->query(
                 "SELECT tklog.* , 
                     user.firstname , user.lastname,user.username,
+                    user.uid as uid, 
                     concat(user.firstname , ' ' , user.lastname) as fullname,
                     shift.shift_name, shift.shift_description,
                     eed.department_id, eed.position_id, eed.shift_id,
@@ -693,7 +694,7 @@
             $endDate = $conditionParam['endDate'];
             $this->db->query(
                 "SELECT tklog.user_id  , tklog.id as log_id , concat(user.firstname , ' ' , user.lastname) as fullname ,
-                tklog.remarks as remarks , tklog.amount as amount , tklog.status as payout_status ,
+                user.uid as uid, tklog.remarks as remarks , tklog.amount as amount , tklog.status as payout_status ,
                 tklog.flushed_hours as flushed_hours,tklog.created_at as date,
                 umt.rate_per_hour , (umt.rate_per_day * umt.work_hours) as rate_per_day,
                 CASE 
@@ -733,6 +734,7 @@
                 if (!isset($retVal[$row->user_id])) {
                     $retVal[$row->user_id] = [
                         'user_id'  => $row->user_id,
+                        'uid'      => $row->uid,
                         'username' => $row->username,
                         'fullname' => $row->fullname,
                         'rate_per_day'     => $row->salary_per_day,
