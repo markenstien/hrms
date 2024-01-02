@@ -19,7 +19,8 @@
 
 
 			$this->runTimeVars = [
-				'url' , 'csrftoken' , 'phpsessid' , '_kdk_supa_cookie_dataprivacy'
+				'url' , 'csrftoken' , 'phpsessid' , '_kdk_supa_cookie_dataprivacy',
+				'__gsas'
 			];
 		}
 		public function method()
