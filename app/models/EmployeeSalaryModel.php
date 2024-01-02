@@ -31,7 +31,13 @@
             }
 
             if(!is_null($id)) {
-                return parent::update($validColumns, $id);
+                $record = parent::single($id);
+
+                if(!$record) {
+                    return parent::store($validColumns);
+                } else {
+                    return parent::update($validColumns, $id);
+                }
             } else {
                 return parent::store($validColumns);
             }

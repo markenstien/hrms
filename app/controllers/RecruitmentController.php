@@ -61,11 +61,6 @@
                 'recruitment_id' => $id
             ]);
 
-            dump([
-                $interviews,
-                $this->data['seriesOfInterview']
-            ]);
-
             $this->data['candidate'] = $candidate;
             $this->data['interviews'] = $interviews;
 

@@ -20,7 +20,7 @@
                         <div class="form-group">
                             <?php
                                 Form::label('Username');
-                                Form::text('username', '', [
+                                Form::text('username', $user->username, [
                                     'class' => 'form-control',
                                     'required' => true
                                 ])

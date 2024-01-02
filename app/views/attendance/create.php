@@ -7,6 +7,7 @@
         <div class="card">
             <?php echo wCardHeader(wCardTitle('Attendance Form')) ?>
             <div class="card-body">
+                <?php Flash::show()?>
                 <?php echo $form->start()?>
                 <?php echo $form->get('user_id')?>
                 <div class="form-group"><?php echo $form->getCol('entry_type')?></div>

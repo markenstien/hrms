@@ -26,7 +26,7 @@
                 $res = $this->model->addNew($post);
 
                 if($res) {
-                    Flash::set($post['position_name'], ' Has been created');
+                    Flash::set($post['position_name'] . ' Has been created');
                     return redirect(_route('position:index'));
                 }
             }
