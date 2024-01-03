@@ -25,6 +25,7 @@
             $req = request()->inputs();
 
             $token = QRTokenService::getLatest(QRTokenService::LOGIN_TOKEN);
+
             $this->data['token'] = $token;
             $this->data['showToken'] = false;
 

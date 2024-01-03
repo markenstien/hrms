@@ -4,6 +4,7 @@
 
     class QRLogin extends Controller
     {
+        public $timelogPlusModel, $userModel;
         public function __construct()
         {
             parent::__construct();
@@ -72,10 +73,38 @@
                     return $this->view('qr_login/log', $this->data);
                 }
                 return $this->view('qr_login/log', $this->data);
+            } elseif(!empty($req['userId']) &&
+                    !empty($req['token']) && 
+                    !empty($req['device']) && $req['device'] == 'mobile') {
+
+                    $response = $this->timelogPlusModel->log([
+                        'userId' => $req['userId'],
+                        'device' => 'web'
+                    ]);
+
+                    if($response) {
+                        echo json_encode([
+                            'success' => true,
+                            'message' => 'Success user '. $this->timelogPlusModel->_getRetval('action'),
+                            'data' => json_encode([
+                                'action' => $this->timelogPlusModel->_getRetval('action')
+                            ])
+                        ]);
+                        return;
+                    }
+                    echo json_encode([
+                        'success' => false,
+                        'message' => $this->timelogPlusModel->getErrorString(),
+                        'data' => json_encode([
+                            'action' => $this->timelogPlusModel->_getRetval('action')
+                        ])
+                    ]);
+
+                return;
             }
 
+            //initial view
             $token = QRTokenService::getLatestToken(QRTokenService::LOGIN_TOKEN);
-
             if(isEqual($token, $req['token'])) {
                 $this->timelogPlusModel->log([
                     'userId' => $req['userId'],
@@ -102,12 +131,12 @@
             } else{
                 echo json_encode([
                     'success' => false,
-                    'message' => 'QRCode Expired, unable to login'
+                    'message' => 'QRCode Expired, unable to login',
+                    'error'   => 'QRCode Expired, unable to login'
                 ]);
             }
-
-            
         }
+
 
         public function getAction() {
             $req = request()->inputs();
