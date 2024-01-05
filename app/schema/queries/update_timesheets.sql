@@ -1,26 +1,22 @@
 
 UPDATE hr_time_sheets 
-	INNER JOIN user_meta 
-		ON user_meta.user_id = hr_time_sheets.user_id
-	
-	SET amount = ((hr_time_sheets.duration/60) * user_meta.rate_per_hour)
+	INNER JOIN employee_salary 
+		ON employee_salary.user_id = hr_time_sheets.user_id
+	SET amount = ((hr_time_sheets.duration/60) * employee_salary.salary_per_hour);
 
-	WHERE hr_time_sheets.user_id = (
-		SELECT id from users 
-			WHERE username = 'cbaad'
-	);
+UPDATE hr_time_sheets
+	SET duration = 480;
 
-
-	SELECT * FROM hr_time_sheets WHERE hr_time_sheets.user_id = (
-		SELECT id from users 
-			WHERE username = 'cbaad'
-	);
+SELECT * FROM hr_time_sheets WHERE hr_time_sheets.user_id = (
+	SELECT id from users 
+		WHERE username = 'cbaad'
+);
 
 
-	SELECT * FROM user_meta WHERE user_meta.user_id = (
-		SELECT id from users 
-			WHERE username = 'cbaad'
-	);
+SELECT * FROM user_meta WHERE user_meta.user_id = (
+	SELECT id from users 
+		WHERE username = 'cbaad'
+);
 
 /**
 *fix max work hours

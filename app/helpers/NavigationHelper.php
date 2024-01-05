@@ -119,7 +119,8 @@
                 'payroll' => [
                     'dashboard' => '*',
                     'payroll' => '*',
-                    'attendance' => '*'
+                    'attendance' => '*',
+                    'deductions' => '*',
                 ],
 
                 'hr' => [
@@ -154,7 +155,8 @@
                         'position|index|Position|fas fa-fw fa-rocket',
                         'department|index|Department|fas fa-fw fa-building',
                         'admin-shift|index|Schedule|fas fa-fw fa-calendar',
-                        'user|index|Employee|fas fa-fw fa-user'
+                        'user|index|Employee|fas fa-fw fa-user',
+                        'deductions|index|Deductions|fas fa-fw fa-window-close'
                     ]
                 ],
 
