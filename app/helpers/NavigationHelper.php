@@ -127,7 +127,9 @@
                     'dashboard' => '*',
                     'leave' => '*',
                     'leave-point' => '*',
-                    'attendance' => '*'
+                    'attendance' => '*',
+                    'holiday'    => '*',
+                    'recruitment' => '*'
                 ],
 
                 'regular_employee' => [
