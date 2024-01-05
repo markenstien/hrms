@@ -53,53 +53,6 @@
                     }
                 }
             }
-
-            
-            // $this->addNavigationBulk('Main', [
-            //     [
-            //         'Dashboard',
-            //         _route('dashboard:index')
-            //     ]
-            // ]);
-
-
-            // $this->addNavigationBulk('Master', [
-            //     [
-            //         'Position',
-            //         _route('position:index')
-            //     ],
-            //     [
-            //         'Department',
-            //         _route('department:index')
-            //     ],
-            //     [
-            //         'Schedule',
-            //         _route('admin-shift:index')
-            //     ],
-            //     [
-            //         'Employee',
-            //         _route('user:index')
-            //     ]
-            // ]);
-
-            // $this->addNavigationBulk('Underdevelopment', [
-            //     [
-            //         'Attendance',
-            //         _route('attendance:index')
-            //     ],
-            //     [
-            //         'Payroll',
-            //         _route('payroll:index')
-            //     ],
-            //     [
-            //         'Deductons',
-            //         _route('deduction:index')
-            //     ],
-            //     [
-            //         'Leave Management',
-            //         _route('leave:index')
-            //     ]
-            // ]);
         }
 
         private function moduleRestrict() {
@@ -198,21 +151,21 @@
                 'master' => [
                     'label' => 'Master',
                     'items' => [
-                        'position|index|Position|fa-solid fa-file-invoice-dollar',
-                        'department|index|Department',
-                        'admin-shift|index|Schedule',
-                        'user|index|Employee'
+                        'position|index|Position|fas fa-fw fa-rocket',
+                        'department|index|Department|fas fa-fw fa-building',
+                        'admin-shift|index|Schedule|fas fa-fw fa-calendar',
+                        'user|index|Employee|fas fa-fw fa-user'
                     ]
                 ],
 
                 'hr' => [
                     'label' => 'HR',
                     'items' => [
-                        'attendance|index|Attendance',
-                        'holiday|index|Holiday',
-                        'payroll|index|Payroll',
-                        'leave|index|Leave',
-                        'recruitment|index|Recruitment'
+                        'attendance|index|Attendance|fas fa-fw fa-clock',
+                        'holiday|index|Holiday|fas fa-fw fa-window-close',
+                        'payroll|index|Payroll|fa fa-fw fa-folder',
+                        'leave|index|Leave|fa fa-fw fa-user-times',
+                        'recruitment|index|Recruitment|fa fa-fw fa-user-plus'
                     ]
                 ]
             ];

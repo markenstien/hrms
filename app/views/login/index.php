@@ -10,6 +10,7 @@
                             <h4>Welcome back!</h4>
                         </div>
 
+                        <?php Flash::show() ?>
                         <?php
                             Form::open([
                                 'method' => 'post',
@@ -19,7 +20,7 @@
                             <div class="form-group">
                                 <?php
                                     Form::label('Username');
-                                    Form::text('username' , '' , [
+                                    Form::text('email' , '' , [
                                         'class' => 'form-control',
                                         'required' => ''
                                     ]);

@@ -42,16 +42,15 @@
         public function punchLogin()
         {
             $post = request()->posts();
+            $user = $this->user->get([
+                'email' => trim($post['email'])
+            ]);
 
-            $username = trim($post['username']);
             $password = trim($post['password']);
-
-
-            $user = $this->user->getByUsername($username);
-
+            
             if($user)
             {
-                if( isEqual($password , $user->password) ) 
+                if(isEqual($password , $user->password) ) 
                 {
                     Flash::set("Welcome");
                     $auth = $this->user->startSession($user->id);

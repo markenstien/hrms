@@ -15,7 +15,7 @@
             if(isSubmitted()) {
                 $post = request()->posts();
                 $user = $this->model->get([
-                    'username' => $post['username']
+                    'email' => $post['email']
                 ]);
     
                 if(!$user) {
