@@ -28,12 +28,8 @@
 
         public function add($leaveData) {
             $_fillables = parent::getFillablesOnly($leaveData);
-
-            // dump($_fillables);
-            $_fillables['user_id'] = '372';
             $isValid = $this->_validateLeaveEntry($_fillables);
-            
-            
+
             if(!$isValid)
                 return false;
 
@@ -119,6 +115,7 @@
                 ], $leaveData['id']);
             } else {
                 return $this->update([
+                    'status' => 'approved',
                     'remarks' => $remarks,
                     'approved_by' => $leaveData['approved_by'],
                     'approval_date' => $leaveData['approval_date']
@@ -143,7 +140,7 @@
             $dateDifference = date_difference($startDate, $endDate);
             $dateDifferenceNumber = str_to_number_only($dateDifference);
 
-            if($dateDifferenceNumber >= 1) {
+            if($dateDifferenceNumber > 1) {
                 return true;
             }else{
                 return false;

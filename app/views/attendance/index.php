@@ -31,7 +31,7 @@
                 <?php endif?>
 
                 <?php
-                    if(!isEqual(whoIs('type'), 'REGULAR_EMPLOYEE')) {
+                    if(isEqual(whoIs('type'), 'HR')) {
                         echo wLinkDefault(_route('attendance:approval'), 'Approvals');
                     }
                 ?>

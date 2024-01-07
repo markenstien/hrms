@@ -1,4 +1,8 @@
-<?php build('content') ?>
+<?php
+
+use function PHPSTORM_META\map;
+
+ build('content') ?>
 <div class="container-fluid">
     <?php
         echo wControlButtonRight('Leave Management', [
@@ -18,6 +22,7 @@
             echo wCardHeader(wCardTitle('Leave Management'))
         ?>
         <div class="card-body">
+            <?php Flash::show()?>
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable">
                     <thead>
@@ -52,35 +57,32 @@
                                 <td>
                                     <?php
                                         if(isEqual(whoIs('id'), $row->user_id) && isEqual($row->status,'pending')) {
-                                            $noAction = true;
                                             echo wLinkDefault(_route('leave:edit', $row->id), '', [
-                                                'icon' => 'edit'
+                                                'icon' => 'fas fa-edit',
+                                                'class' => 'btn btn-sm btn-primary'
                                             ]);
                                         }
 
                                         if(isEqual($row->status,'pending')) {
-                                            echo wLinkDefault(_route('leave:delete', $row->id), '', [
+                                            echo '|' . ' ' .wLinkDefault(_route('leave:approve', $row->id), '', [
+                                                'icon' => 'fas fa-check-circle',
+                                                'class' => 'btn btn-sm btn-primary'
+                                            ]);
+
+                                            echo '&nbsp; |' . ' ' .wLinkDefault(_route('leave:delete', $row->id), '', [
                                                 'icon' => 'fas fa-trash',
-                                                'class' => 'text-danger form-verify'
+                                                'class' => 'text-danger form-verify',
+                                                'class' => 'btn btn-sm btn-danger'
                                             ]);
                                         }
-                                    ?>
-                                    <?php 
-                                        if(isEqual($row->status,'pending')) {
-                                            $noAction = true;
-                                            echo wLinkDefault(_route('leave:approve', $row->id), '', [
-                                                'icon' => 'fas fa-check-circle'
-                                            ]);
-                                        }
-                                    ?>
-                                    <?php
+
                                         if(empty($row->remarks)) {
                                             $noAction = true;
-                                            echo wLinkDefault(_route('leave:admin-approval', $row->id), '', [
+                                            echo '|' . ' '.wLinkDefault(_route('leave:admin-approval', $row->id), '', [
                                                 'icon' => 'fas fa-check-circle',
-                                                'class' => 'btn btn-sm btn-secondary'
+                                                'class' => 'btn btn-sm btn-success'
                                             ]);
-                                        }  
+                                        }
                                     ?>
                                 </td>
                             </tr>

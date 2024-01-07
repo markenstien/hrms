@@ -53,7 +53,8 @@
 	_routeInstance('holiday', 'HolidayController', $routes);
 
 	_routeInstance('attachment', 'AttachmentController', $routes, [
-		'delete' => 'delete'
+		'delete' => 'delete',
+		'update-visibility' => 'updateVisibility'
 	]);
 	_routeInstance('viewer', 'ViewerController', $routes,[
 		'delete' => 'delete'

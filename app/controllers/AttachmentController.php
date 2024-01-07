@@ -44,9 +44,8 @@
         public function delete() {
             $req = request()->inputs();
             $this->_attachmentModel->deleteWithFile($req['id']);
-
             Flash::set('file removed');
-            return redirect(_route('user:show', $req['userId']));
+            return request()->return();
         }
 
         public function edit($id) {
@@ -69,5 +68,22 @@
             $this->data['userId'] = $attachment->global_id;
             
             return $this->view('attachment/edit', $this->data);
+        }
+
+        public function updateVisibility() {
+            $req = request()->inputs();
+            $id = unseal($req['id']);
+
+            $attachment = $this->_attachmentModel->get($id);
+
+            if(is_null($attachment->is_visible)) {
+                $this->_attachmentModel->update([
+                    'is_visible' => true
+                ], $id);
+
+                Flash::set('File Updated');
+
+                return request()->return();
+            }
         }
     }

@@ -18,8 +18,20 @@
                                 <tr><td>Email : <?php echo $user->email?></td></tr>
                                 <tr><td>Mobile Number : <?php echo $user->mobile_number?></td></tr>
                                 <tr>
-                                    <td><?php echo wLinkDefault(_route('user:edit-credentials', $user->id), 'Change Password')?> 
-                                    | <?php echo wLinkDefault(_route('user:edit', $user->id), 'Edit General')?></td>
+                                    <td>
+                                        <?php
+                                            if(isEqual(whoIs('type'), ['HR','SUPER_ADMIN', 'ADMIN']) || isEqual($user->id, whoIs('id'))) {
+                                                echo wLinkDefault(_route('user:edit-credentials', $user->id), 'Change Password');
+                                            }
+
+                                            if(isEqual(whoIs('type'), 'HR')) {
+                                                echo '|'. ' '. wLinkDefault(_route('user:edit', $user->id), 'Edit General');
+                                            }
+                                        ?>
+                                      <?php 
+                                        
+                                      ?>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td><?php echo wLinkDefault(_route('leave:user', $user->id), 'Leave Credits')?></td>
@@ -69,6 +81,7 @@
                                     <th>#</th>
                                     <th>File Name</th>
                                     <th>Action</th>
+                                    <th>Approval</th>
                                 </thead>
 
                                 <tbody>
@@ -87,6 +100,29 @@
                                                 <?php echo wLinkDefault(_route('attachment:edit', $row->id), 'Edit', [
                                                     ''
                                                 ])?>
+
+                                                &nbsp;
+                                                <?php
+                                                    if(isEqual(whoIs('type'), 'HR') || isEqual($user->id, whoIs('id'))){
+                                                        echo wLinkDefault(_route('attachment:delete', [
+                                                            'id' => $row->id
+                                                        ]), 'Delete');
+                                                    }
+                                                ?>
+                                            </td>
+                                        
+                                            <td>
+                                                <?php
+                                                    echo $row->is_visible ? 'Approved' : 'Pending';
+                                                    if(isEqual(whoIs('type'), 'HR')){
+                                                        if(!$row->is_visible) {
+                                                            echo wLinkDefault(_route('attachment:update-visibility', [
+                                                                'visible' => 'yes',
+                                                                'id'      => seal($row->id)
+                                                            ]), 'Approve');
+                                                        }
+                                                    }
+                                                ?>
                                             </td>
                                         </tr>
                                     <?php endforeach?>
@@ -98,6 +134,7 @@
             </div>
         </div>
     </div>
+                                            
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">

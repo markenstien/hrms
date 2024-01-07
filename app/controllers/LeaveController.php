@@ -58,6 +58,7 @@
                 $condition = '';
                 $leaves = $this->model->getAll([
                     'where' => $condition,
+                    'order' => 'FIELD(el.status, "pending", "approved", "declined"), el.updated_at desc',
                     'limit' => '30'
                 ]);
             }
@@ -125,7 +126,7 @@
                 $post['approval_date'] = nowMilitary();
                 $this->model->adminApproval($post);
                 Flash::set("Leave Request updated");
-                return redirect(_route('leave:admin-approval', $id));
+                return redirect(_route('leave:index'));
             }
             $leave = $this->model->get($id);
             $this->data['leave'] = $leave;

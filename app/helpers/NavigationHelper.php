@@ -93,7 +93,6 @@
                     'position' => '*',
                     'department' => '*',
                     'admin-shift' => '*',
-                    'deduction' => '*',
                 ],
 
                 'super-admin' => [
@@ -119,7 +118,6 @@
                 'payroll' => [
                     'dashboard' => '*',
                     'payroll' => '*',
-                    'attendance' => '*',
                     'deduction' => '*',
                 ],
 
@@ -129,7 +127,8 @@
                     'leave-point' => '*',
                     'attendance' => '*',
                     'holiday'    => '*',
-                    'recruitment' => '*'
+                    'recruitment' => '*',
+                    'user' => '*'
                 ],
 
                 'regular_employee' => [
