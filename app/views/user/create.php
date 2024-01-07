@@ -9,6 +9,11 @@
                 <div class="card-body">
                     <?php Flash::show()?>
                     <?php echo $form->start()?>
+                    <?php 
+                        if(!empty($recruitmentId)) {
+                            Form::hidden('recruitment_id', $recruitmentId);
+                        }
+                    ?>
                     <div class="form-group">
                         <?php echo $form->getCol('profile')?>
                     </div>

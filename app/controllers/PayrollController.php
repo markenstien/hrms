@@ -1,14 +1,19 @@
 <?php 
 	use Services\CommonService;
 	use Services\PayrollService;
+	use Services\UserService;
 
-	load(['CommonService', 'PayrollService'], APPROOT.DS.'services');
+	load(['CommonService', 'PayrollService', 'UserService'], APPROOT.DS.'services');
 
 	class PayrollController extends Controller
 	{
 
 		public function __construct(){
 			parent::__construct();
+			if(isEqual(whoIs('type'),[UserService::PAYROLL, UserService::SUPER_ADMIN])) {
+				Flash::set('Invalid Access');
+				return redirect(_route('dashboard:index'));
+			}
 			$this->model = model('PayrollModel');
 			$this->payrollItemModel = model('PayrollItemModel');
 			$this->timesheet = model('TimesheetModel');

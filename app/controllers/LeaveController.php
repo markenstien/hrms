@@ -1,7 +1,10 @@
 <?php
 
     use Form\LeaveForm;
+    use Services\UserService;
+
     load(['LeaveForm'], FORMS);
+    load(['UserService'], SERVICES);
 
     class LeaveController extends Controller
     {
@@ -34,6 +37,10 @@
                     'remarks'
                 ];
                 $condition = [];
+                
+                if(isEqual(whoIs('type'), UserService::REGULAR_EMPLOYEE)) {
+                    $condition['el.user_id'] = whoIs('id');
+                }
                 foreach($req as $reqKey => $reqRow) {
                     if(isEqual($reqKey, $validFilters) && $reqRow != '') {
                         $condition["el.{$reqKey}"] = $reqRow;
@@ -44,7 +51,13 @@
                     'where' => $condition
                 ]);
             } else {
+                if(isEqual(whoIs('type'), UserService::REGULAR_EMPLOYEE)) {
+                    $condition['el.user_id'] = whoIs('id');
+                }
+
+                $condition = '';
                 $leaves = $this->model->getAll([
+                    'where' => $condition,
                     'limit' => '30'
                 ]);
             }
@@ -126,7 +139,15 @@
         }
 
         public function leaveSummary() {
-            $users = $this->userModel->getAll();
+            if(isEqual(whoIs('type'), UserService::REGULAR_EMPLOYEE)) {
+                $users = $this->userModel->getAll([
+                    'where' => [
+                        'user.id' => whoIs('id')
+                    ]
+                ]);
+            } else {
+                $users = $this->userModel->getAll();
+            }
             $summary = [];
 
             foreach($users as $key => $row) {

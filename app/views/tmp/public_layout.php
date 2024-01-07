@@ -43,7 +43,7 @@
       <!-- Bootstrap core JavaScript-->
       <script src="<?php echo _path_public('ui/ui-main/vendor/jquery/jquery.min.js')?>"></script>
       <script src="<?php echo _path_public('ui/ui-main/vendor/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
-z      <!-- Core plugin JavaScript-->
+      <!-- Core plugin JavaScript-->
       <script src="<?php echo _path_public('ui/ui-main/vendor/jquery-easing/jquery.easing.min.js')?>"></script>
 
       <!-- Custom scripts for all pages-->

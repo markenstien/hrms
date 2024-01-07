@@ -4,7 +4,7 @@
 
     class UserController extends Controller
     {
-        public $form;
+        public $form, $recruitmentModel;
 
         public function __construct()
         {
@@ -14,6 +14,8 @@
             $this->schedule = model('ScheduleModel');
             $this->logModel = model('SystemLogModel');
             $this->payrollItemModel = model('PayrollItemModel');
+            $this->recruitmentModel = model('RecruitmentModel');
+
             $this->form = new UserForm();
 
             $this->data['form'] = $this->form;
@@ -25,7 +27,9 @@
         public function index()
         {
             $branches  = $this->branch->all();
-            $users = $this->user->getAll();;
+            $users = $this->user->getAll([
+                'order' => 'user.id desc'
+            ]);
             $this->data['users'] = $users;
             $this->data['branches'] = arr_layout_keypair($branches, ['id','branch']);
 
@@ -34,18 +38,40 @@
 
         public function create()
         {
+            $req = request()->inputs();
+
             if(isSubmitted()) {
                 $post = request()->posts();
-
                 $response = $this->user->addNew($post);
 
                 if($response) {
                     $this->user->uploadProfile('profile', $this->user->_getRetval('userId'));
+
+                    if(!empty($post['recruitment_id'])) {
+                        $this->recruitmentModel->onboard($post['recruitment_id'], whoIs('id'));
+                    }
                     Flash::set($this->user->getMessageString());
                     return redirect(_route('user:show', $this->user->_getRetval('userId')));
                 } else {
                     Flash::set($this->user->getErrorString(), 'danger');
                     return request()->return();
+                }
+            }
+            
+            if(!empty($req['recruitmentId'])) {
+                $recruitmentId = unseal($req['recruitmentId']);
+                $recruitmentData = $this->recruitmentModel->get($recruitmentId);
+
+                if($recruitmentData){
+                    //auto fill user data
+                    $this->form->setValue('firstname', $recruitmentData->firstname);
+                    $this->form->setValue('lastname', $recruitmentData->firstname);
+                    $this->form->setValue('email', $recruitmentData->email);
+                    $this->form->setValue('mobile_number', $recruitmentData->mobile_number);
+                    $this->form->setValue('address', $recruitmentData->address);
+                    $this->form->setValue('position_id', $recruitmentData->position_id);
+
+                    $this->data['recruitmentId'] = $recruitmentId;
                 }
             }
             $branches = $this->branch->all(null , ' branch asc ');
@@ -146,6 +172,14 @@
                     'item.user_id' => $id
                 ]
             ]);
+            
+            $this->data['files'] = $this->_attachmentModel->all([
+                'global_key' => 'user_resources',
+                'global_id' => $id
+            ]);
+
+            $this->data['userId'] = $id;
+            $this->data['attachmentForm'] = $this->_attachmentForm;
             return $this->view('user/show', $this->data);
         }
 

@@ -19,7 +19,7 @@
                         ?>
                             <div class="form-group">
                                 <?php
-                                    Form::label('Username');
+                                    Form::label('Email');
                                     Form::text('email' , '' , [
                                         'class' => 'form-control',
                                         'required' => ''
@@ -58,6 +58,8 @@
                 </div>
             </div>
         </div>
+
+    <div id="stetch" style="height:300px;"></div>
 <?php endbuild()?>
 
 <?php build('scripts') ?>

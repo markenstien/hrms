@@ -134,7 +134,7 @@
 
                 'regular_employee' => [
                     'dashboard' => '*',
-                    'payroll' => '*',
+                    'payslip' => '*',
                     'attendance' => '*',
                     'leave' => '*'
                 ],
@@ -170,6 +170,13 @@
                         'payroll|index|Payroll|fa fa-fw fa-folder',
                         'leave|index|Leave|fa fa-fw fa-user-times',
                         'recruitment|index|Recruitment|fa fa-fw fa-user-plus'
+                    ]
+                ],
+
+                'salary' => [
+                    'label' => 'Salary',
+                    'items' => [
+                        'payslip|index|Payslip|fas fa-fw fa-folder'
                     ]
                 ]
             ];

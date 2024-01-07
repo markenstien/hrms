@@ -10,7 +10,7 @@
             <?php echo wCardHeader(wCardTitle('Candidates'))?>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered" id="dataTable">
                         <thead>
                             <th>#</th>
                             <th>Name</th>
@@ -21,6 +21,7 @@
                             <th>Email</th>
                             <th>Address</th>
                             <th>Remarks</th>
+                            <th>Final Remarks</th>
                             <th>Date of Entry</th>
                             <th>Action</th>
                         </thead>
@@ -37,6 +38,7 @@
                                     <td><?php echo $row->email?></td>
                                     <td><?php echo $row->address?></td>
                                     <td><?php echo $row->remarks?></td>
+                                    <td><?php echo $row->recruit_status?></td>
                                     <td><?php echo $row->created_at?></td>
                                     <td><?php echo wLinkDefault( _route('recruitment:show', $row->id), 'Show')?></td>
                                 </tr>

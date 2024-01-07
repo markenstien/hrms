@@ -36,7 +36,13 @@
 		'logged-in' => 'loggedIn'
 	]);
 
-	_routeInstance('recruitment', 'RecruitmentController', $routes);
+	_routeInstance('recruitment', 'RecruitmentController', $routes, [
+		'create-account' => 'createEmployeeAccount'
+	]);
+
+	_routeInstance('payslip', 'PayslipController', $routes,[
+		'delete' => 'delete'
+	]);
 
 	_routeInstance('recruitment-interviews', 'RecruitmentInterviewController', $routes);
 
@@ -46,9 +52,17 @@
 
 	_routeInstance('holiday', 'HolidayController', $routes);
 
-	_routeInstance('attachment', 'Attachment', $routes);
+	_routeInstance('attachment', 'AttachmentController', $routes, [
+		'delete' => 'delete'
+	]);
+	_routeInstance('viewer', 'ViewerController', $routes,[
+		'delete' => 'delete'
+	]);
+
+	
 
 
+	
 	$routes['auth'] = [
 		'logout' => '/Logout/index',
 		'login'  => '/Login/index'

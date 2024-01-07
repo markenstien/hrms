@@ -38,6 +38,14 @@
                                 <td><?php echo $form->label('result')?></td>
                                 <td><span class="badge badge-primary"><?php echo $candidate->result?></span></td>
                             </tr>
+                            <tr>
+                                <td>Move as Employee</td>
+                                <td>
+                                    <?php echo wLinkDefault(_route('user:create', [
+                                        'recruitmentId' => seal($candidate->id)
+                                    ]), 'Create Account')?>
+                                </td>
+                            </tr>
                         </table>
                     </div>
                 </div>
@@ -60,12 +68,30 @@
                             </div>
                             <div class="card-body">
                                 <?php foreach($seriesOfInterview as $key => $row): ?>
-                                    <?php echo wLinkDefault(_route('recruitment-interviews:create', $candidate->id, [
+                                    <?php $hasResult = false?>
+                                    <?php foreach($interviews as $iKey => $iRow) :?>
+                                        <?php 
+                                            if($iRow->interview_number == $row['number']){
+                                                $hasResult = $iRow;
+                                            }
+                                        ?>
+                                    <?php endforeach?>
+                                    <?php if(!$hasResult) :?>
+                                        <?php echo wLinkDefault(_route('recruitment-interviews:create', $candidate->id, [
                                             'title' => $row['name'],
                                             'number' => $row['number']
                                         ]), 'Start : '.$row['name'], [
                                             'class' => 'btn btn-primary'
                                         ])?>
+                                    <?php else:?>
+
+                                        <?php echo wLinkDefault(_route('recruitment-interviews:show', $iRow->id, [
+                                            'title' => $row['name'],
+                                            'number' => $row['number']
+                                        ]), strtoupper(isEqual($hasResult->result,'passed') ? 'Passed' : Module::get('recruitment')['statusList'][$hasResult->result]), [
+                                            'class' => isEqual($hasResult->result, 'passed') ?  'btn btn-success': 'btn btn-danger'
+                                        ])?>
+                                    <?php endif?>
                                 <?php endforeach?>
                             </div>
                         </div>

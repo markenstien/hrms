@@ -60,4 +60,11 @@
 
             return $this->db->resultSet();
         }
+
+        public function onboard($id, $processedBy) {
+            parent::update([
+                'recruit_status' => 'on-boarded',
+                'recruit_status_by' => $processedBy
+            ], $id);
+        }
     }

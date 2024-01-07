@@ -18,7 +18,7 @@
                                 <tr><td>Email : <?php echo $user->email?></td></tr>
                                 <tr><td>Mobile Number : <?php echo $user->mobile_number?></td></tr>
                                 <tr>
-                                    <td><?php echo wLinkDefault(_route('user:edit-credentials', $user->id), 'Edit Credentials')?> 
+                                    <td><?php echo wLinkDefault(_route('user:edit-credentials', $user->id), 'Change Password')?> 
                                     | <?php echo wLinkDefault(_route('user:edit', $user->id), 'Edit General')?></td>
                                 </tr>
                                 <tr>
@@ -57,7 +57,78 @@
                                 </tbody>
                             </table>
                         </section>
+
+                        <section>
+                            <h4>File Management</h4>
+                            <?php echo wLinkDefault('#', 'Upload File', [
+                                'data-toggle' => 'modal',
+                                'data-target' => '#exampleModal'
+                            ])?>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <th>#</th>
+                                    <th>File Name</th>
+                                    <th>Action</th>
+                                </thead>
+
+                                <tbody>
+                                    <?php foreach($files as $key => $row) :?>
+                                        <tr>
+                                            <td><?php echo ++$key?></td>
+                                            <td><?php echo $row->display_name?></td>
+                                            <td>
+                                                <?php echo wLinkDefault(_route('viewer:show', [
+                                                    'file' => seal($row->full_url),
+                                                    'attachmentId' => $row->id,
+                                                    'userId' => seal($userId)
+                                                ]), 'Show')?>
+                                                &nbsp;
+
+                                                <?php echo wLinkDefault(_route('attachment:edit', $row->id), 'Edit', [
+                                                    ''
+                                                ])?>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach?>
+                                </tbody>
+                            </table>
+                        </section>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Upload File</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <?php echo $attachmentForm->start()?>
+                        <?php
+                            echo Form::hidden('user_id', $userId);
+                            echo Form::hidden('g_key', 'user_resources');
+                            echo Form::hidden('route', seal(_route('user:show', $userId)));
+                            echo Form::hidden('path', seal(PATH_UPLOAD.DS.'user_resources'));
+                            echo Form::hidden('g_url', seal(GET_PATH_UPLOAD.DS.'user_resources'));
+                        ?>
+                        <div class="form-group">
+                            <?php echo $attachmentForm->getCol('display_name');?>
+                        </div>
+
+                        <div class="form-group">
+                            <?php echo $attachmentForm->getCol('file')?>
+                        </div>
+
+                        <div class="form-group">
+                            <?php echo Form::submit('upload_file', 'Upload File')?>
+                        </div>
+                    <?php echo $attachmentForm->end()?>
                 </div>
             </div>
         </div>

@@ -1,12 +1,15 @@
 <?php
 
     use Form\RecruitmentForm;
-    load(['RecruitmentForm'], FORMS);
+    use Form\UserForm;
+
+    load(['RecruitmentForm', 'UserForm'], FORMS);
 
     class RecruitmentController extends Controller
     {
         private $recruitmentModel, $recruitmentInterviewModel;
         private $form;
+        private $userForm;
 
         const SERIES_OF_INTERVIEW = [
             [
@@ -30,10 +33,13 @@
             $this->form = new RecruitmentForm();
             $this->data['form'] = $this->form;
             $this->data['seriesOfInterview'] = self::SERIES_OF_INTERVIEW;
+            $this->userForm = new UserForm();
         }
 
         public function index() {
-            $this->data['recruits'] = $this->recruitmentModel->getAll();
+            $this->data['recruits'] = $this->recruitmentModel->getAll([
+                'order' => 'recruit.id desc'
+            ]);
             return $this->view('recruitment/index', $this->data);
         }
 
@@ -67,6 +73,13 @@
             return $this->view('recruitment/show', $this->data);
         }
 
+        public function createEmployeeAccount($id) {
+            $candidate = $this->recruitmentModel->get($id);
+            $this->data['candidate'] = $candidate;
+
+            $this->data['userForm'] = $this->userForm;
+            return $this->view('recruitment/create_employee', $this->data);
+        }
         public function edit() {
 
         }

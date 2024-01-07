@@ -1,13 +1,17 @@
 <?php build('content') ?>
 
     <div class="container-fluid">
-        <?php echo wControlButtonRight('Leave Management', [
-            $navigationHelper->setNav('', 'Leave Summary', _route('leave:summary'), [
+        <?php
+            $navs = [$navigationHelper->setNav('', 'Leave Summary', _route('leave:summary'), [
                 'icon' => 'fas fa-eye'
-            ]),
+            ])];
 
-            $navigationHelper->setNav('', 'Add Leave Point', _route('leave-point:create'))
-        ])?>
+            if(isEqual(whoIs('type'), 'HR')) {
+                array_push($navs, $navigationHelper->setNav('', 'Add Leave Point', _route('leave-point:create')));
+            }
+
+        ?>
+        <?php echo wControlButtonRight('Leave Management', $navs)?>
         <div class="card">
             <?php echo wCardHeader(wCardTitle('Leave Credits'))?>
             <div class="card-body">

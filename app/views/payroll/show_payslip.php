@@ -12,7 +12,7 @@
 							<td>Employed : <?php echo date('Y/m/d', strtotime($user->hire_date))?></td>
 						</tr>
 						<tr>
-							<td>DEPT. : <?php echo $user->department_name?></td>
+							<td>Dept/Position : <?php echo $user->department_name?>/<?php echo $user->position_name?></td>
 							<td>Rate : <?php echo $user->salary_per_day?>/day</td>
 						</tr>
 						<tr>

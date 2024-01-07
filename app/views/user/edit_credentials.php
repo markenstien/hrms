@@ -7,43 +7,8 @@
     <div class="container-fluid">
         <div class="col-md-6 mx-auto">
             <div class="card">
-                <?php echo wCardHeader(wCardTitle('Edit Credentials'))?>
+                <?php echo wCardHeader(wCardTitle('Change Password'))?>
                 <div class="card-body">
-                    <?php
-                        Form::open([
-                            'method' => 'post'
-                        ]);
-
-                        Form::hidden('user_id', $user->id);
-                        Form::hidden('action_type', 'change_username');
-                    ?>
-                        <div class="form-group">
-                            <?php
-                                Form::label('Username');
-                                Form::text('username', $user->username, [
-                                    'class' => 'form-control',
-                                    'required' => true
-                                ])
-                            ?>
-                        </div>
-
-                        <div class="form-group">
-                            <?php
-                                Form::label('Password');
-                                Form::password('password', '', [
-                                    'class' => 'form-control',
-                                    'required' => true
-                                ])
-                            ?>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="submit" class="btn btn-primary btn-sm" value="Change Username">
-                        </div>
-                    <?php Form::close()?>
-
-                    <?php echo wDivider()?>
-                    <hr>
                     <?php
                         Form::open([
                             'method' => 'post'

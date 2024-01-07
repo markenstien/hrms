@@ -218,7 +218,8 @@
 
 		public function delete($id) {
 			$payroll = parent::get($id);
-			if(!is_null($payroll->release_date)) {
+
+			if($payroll->release_date) {
 				//payroll has money has been delivered.
 				if(!isset($this->payrollItemModel)) {
 					$this->payrollItemModel = model('PayrollItemModel');
