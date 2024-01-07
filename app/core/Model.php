@@ -63,9 +63,14 @@
 
 		public function delete($id)
 		{
+			if (is_array($id)) {
+				$where = $this->convertWhere($id);
+			} else {
+				$where = "id = '{$id}'";
+			}
 			$data = [
 				$this->table,
-				"id = '{$id}'"
+				$where
 			];
 
 			return $this->dbHelper->delete(...$data);
