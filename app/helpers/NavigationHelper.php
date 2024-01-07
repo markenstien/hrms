@@ -120,7 +120,7 @@
                     'dashboard' => '*',
                     'payroll' => '*',
                     'attendance' => '*',
-                    'deductions' => '*',
+                    'deduction' => '*',
                 ],
 
                 'hr' => [

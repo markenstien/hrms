@@ -10,7 +10,7 @@
 
 		public function __construct(){
 			parent::__construct();
-			if(isEqual(whoIs('type'),[UserService::PAYROLL, UserService::SUPER_ADMIN])) {
+			if(!isEqual(whoIs('type'),[UserService::PAYROLL, UserService::SUPER_ADMIN])) {
 				Flash::set('Invalid Access');
 				return redirect(_route('dashboard:index'));
 			}
