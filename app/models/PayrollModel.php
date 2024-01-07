@@ -154,7 +154,6 @@
 							$takeHomePay = $regTotalAmount - $payrollDeductionAmount;
 	             		} else {
 	             			$paramsData['deduction_notes'] = '';
-							$takeHomePay = $regTotalAmount;
 	             		}
 
 
@@ -174,8 +173,6 @@
 
 							$paramsData['bonus_notes'] = json_encode($payrollBonus);
 							$takeHomePay += $payrolBonusAmount;
-						} else {
-							$takeHomePay = $regTotalAmount;
 						}
 
 					$paramsData['take_home_pay'] = $takeHomePay;
