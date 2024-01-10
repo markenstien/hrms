@@ -1,11 +1,4 @@
 <?php
-    function appLoad($path)
-    {
-        $app = app();
-
-        require_once(APP_EXTENSIONS_PATH.DS.$app.DS.$path);
-    }
-
     function app()
     {
         $url = explode('/',$_GET['url']);

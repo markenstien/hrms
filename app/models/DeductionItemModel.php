@@ -38,10 +38,33 @@
 			return parent::store($insertData);
 		}
 
+		public function getTotalContribution($deductionIds, $startDate, $endDate, $userId = null) {
+			$this->db->query(
+				"SELECT * FROM users"
+			);
+
+			$users = $this->db->resultSet();
+
+			$this->db->query(
+				"SELECT sum(initial_balance) "
+			);
+		}
+
+		public function get($id) {
+			if(is_array($id)) {
+				$condition = $id;
+			} else {
+				$condition = "id = '{$id}'";
+			}
+
+			return $this->getAll([
+				'where' => $condition
+			])[0] ?? false;
+		}
+
 		public function getAll($params = []) {
 
 			$where = null;
-			$order = null;
 
 			if(isset($params['where'])) {
 				$where = ' WHERE '.parent::convertWhere($params['where']);
@@ -49,6 +72,7 @@
 
 			$this->db->query(
 				"SELECT di.*,
+				user.uid as uid,
 				concat(firstname, ' ', lastname) as fullname,
 					deduct.deduction_name,
 					deduct.deduction_code,

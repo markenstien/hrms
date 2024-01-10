@@ -56,10 +56,14 @@
 		'delete' => 'delete',
 		'update-visibility' => 'updateVisibility'
 	]);
+
 	_routeInstance('viewer', 'ViewerController', $routes,[
 		'delete' => 'delete'
 	]);
 
+	_routeInstance('report', 'ReportController', $routes,[
+		'review' => 'review'
+	]);
 	
 
 

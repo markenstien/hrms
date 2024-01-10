@@ -6,8 +6,8 @@
 
         public function __construct()
         {
-            $this->moduleRestrict();
-            // $this->loadNavs();
+            // $this->moduleRestrict();
+            $this->loadNavs();
         }
 
         public function getNavsHTML() {
@@ -93,6 +93,7 @@
                     'position' => '*',
                     'department' => '*',
                     'admin-shift' => '*',
+                    'report' => '*'
                 ],
 
                 'super-admin' => [
@@ -101,7 +102,8 @@
                     'attendance' => '*',
                     'position' => 'view',
                     'department' => 'view',
-                    'admin-shift' => 'view'
+                    'admin-shift' => 'view',
+                    'report' => '*'
                 ],
                 
                 
@@ -128,7 +130,8 @@
                     'attendance' => '*',
                     'holiday'    => '*',
                     'recruitment' => '*',
-                    'user' => '*'
+                    'user' => '*',
+                    'report' => '*'
                 ],
 
                 'regular_employee' => [
@@ -157,7 +160,8 @@
                         'department|index|Department|fas fa-fw fa-building',
                         'admin-shift|index|Schedule|fas fa-fw fa-calendar',
                         'user|index|Employee|fas fa-fw fa-user',
-                        'deduction|index|Deductions|fas fa-fw fa-window-close'
+                        'deduction|index|Deductions|fas fa-fw fa-window-close',
+                        'report|index|Report|fas fa-fw fa-chart-bar'
                     ]
                 ],
 

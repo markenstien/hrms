@@ -301,3 +301,13 @@
             'log_category' => $category
         ]);
     }
+
+    function sumNumbers($numbers = []) {
+        $retVal = 0;
+
+        foreach($numbers as $row) {
+            $retVal += $numbers;
+        }
+
+        return $retVal;
+    }
