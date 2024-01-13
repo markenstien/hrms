@@ -10,10 +10,6 @@
 
 		public function __construct(){
 			parent::__construct();
-			if(!isEqual(whoIs('type'),[UserService::PAYROLL, UserService::SUPER_ADMIN])) {
-				Flash::set('Invalid Access');
-				return redirect(_route('dashboard:index'));
-			}
 			$this->model = model('PayrollModel');
 			$this->payrollItemModel = model('PayrollItemModel');
 			$this->timesheet = model('TimesheetModel');
@@ -30,6 +26,11 @@
 		}
 
 		public function create() {
+			if(!isEqual(whoIs('type'),[UserService::PAYROLL, UserService::SUPER_ADMIN])) {
+				Flash::set('Invalid Access');
+				return redirect(_route('dashboard:index'));
+			}
+			
 			$message = '';
 
 			if(isSubmitted()) {

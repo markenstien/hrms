@@ -22,6 +22,10 @@
             $req = request()->inputs();
             $this->data['result'] = null;
             $this->data['req'] = $req;
+            $this->data['employees'] = $this->userModel->getAll([
+                'order' => 'user.firstname asc'
+            ]);
+            
             if(!empty($req['category'])) {
                 switch($req['category']) {
                     case ReportService::CATEGORY_GOV_CONTRIBUTION:

@@ -39,7 +39,6 @@
 
             if($whoIs) {
                 $moduleGroup = $this->moduleGroup();
-
                 foreach($moduleGroup as $modKey => $modRow) {
                     $modRowItems = $modRow['items'];
                     foreach($modRowItems as $itemKey => $itemVal) {

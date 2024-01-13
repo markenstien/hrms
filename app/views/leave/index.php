@@ -63,25 +63,27 @@ use function PHPSTORM_META\map;
                                             ]);
                                         }
 
-                                        if(isEqual($row->status,'pending')) {
-                                            echo '|' . ' ' .wLinkDefault(_route('leave:approve', $row->id), '', [
-                                                'icon' => 'fas fa-check-circle',
-                                                'class' => 'btn btn-sm btn-primary'
-                                            ]);
-
-                                            echo '&nbsp; |' . ' ' .wLinkDefault(_route('leave:delete', $row->id), '', [
-                                                'icon' => 'fas fa-trash',
-                                                'class' => 'text-danger form-verify',
-                                                'class' => 'btn btn-sm btn-danger'
-                                            ]);
-                                        }
-
-                                        if(empty($row->remarks)) {
-                                            $noAction = true;
-                                            echo '|' . ' '.wLinkDefault(_route('leave:admin-approval', $row->id), '', [
-                                                'icon' => 'fas fa-check-circle',
-                                                'class' => 'btn btn-sm btn-success'
-                                            ]);
+                                        if(isEqual(whoIs('type'), ['SUPER_ADMIN', 'HR'])) {
+                                            if(isEqual($row->status,'pending')) {
+                                                echo '|' . ' ' .wLinkDefault(_route('leave:approve', $row->id), '', [
+                                                    'icon' => 'fas fa-check-circle',
+                                                    'class' => 'btn btn-sm btn-primary'
+                                                ]);
+                                                
+                                                echo '&nbsp; |' . ' ' .wLinkDefault(_route('leave:delete', $row->id), '', [
+                                                    'icon' => 'fas fa-trash',
+                                                    'class' => 'text-danger form-verify',
+                                                    'class' => 'btn btn-sm btn-danger'
+                                                ]);
+                                            }
+    
+                                            if(empty($row->remarks)) {
+                                                $noAction = true;
+                                                echo '|' . ' '.wLinkDefault(_route('leave:admin-approval', $row->id), '', [
+                                                    'icon' => 'fas fa-check-circle',
+                                                    'class' => 'btn btn-sm btn-success'
+                                                ]);
+                                            }
                                         }
                                     ?>
                                 </td>

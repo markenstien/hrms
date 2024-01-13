@@ -27,7 +27,7 @@
                             <div class="form-group">
                                 <?php
                                     Form::label('Employee ID (optional)');
-                                    Form::text('uid', '', [
+                                    Form::select('uid', arr_layout_keypair($employees,['uid', 'firstname@lastname']), '', [
                                         'class' => 'form-control'
                                     ])
                                 ?>
