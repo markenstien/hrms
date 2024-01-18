@@ -29,7 +29,7 @@
 
     define('GLOBALS' , APPROOT.DS.'classes/globals');
 
-    define('SITE_NAME' , 'korpee.com');
+    define('SITE_NAME' , 'korpee.app');
 
     define('COMPANY_NAME' , 'Chromatic Softwares');
 

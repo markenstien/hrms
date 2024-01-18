@@ -53,7 +53,7 @@
         break;
 
         case 'up':
-            define('URL' , 'http://korpee.com');
+            define('URL' , 'https://korpee.app');
             define('DBVENDOR' , 'mysql');
             define('DBHOST' , 'localhost');
             define('DBUSER' , 'korpzpru_korpee');
