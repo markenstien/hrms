@@ -1,11 +1,5 @@
 <?php
     define('SYSTEM_MODE' , $system['mode']);
-
-    define('UI_THEME' , $ui['vendor']);
-
-    define('APP_NAME' , $system['app_name']);
-
-
     define('DB_PREFIX' , 'hr_');
 
     switch(SYSTEM_MODE)
@@ -59,12 +53,12 @@
         break;
 
         case 'up':
-            define('URL' , 'https://bitmates.site');
+            define('URL' , 'http://korpee.com');
             define('DBVENDOR' , 'mysql');
             define('DBHOST' , 'localhost');
-            define('DBUSER' , 'korpzpru_hrms');
-            define('DBPASS' , '#gzet.@CTt(F');
-            define('DBNAME' , 'korpzpru_hrms');
+            define('DBUSER' , 'korpzpru_korpee');
+            define('DBPASS' , '2;l],C1R[2Xm');
+            define('DBNAME' , 'korpzpru_korpee');
 
             define('BASECONTROLLER' , 'Login');
             define('BASEMETHOD' , 'index');

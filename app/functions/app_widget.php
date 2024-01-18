@@ -61,13 +61,14 @@
 
     function wCardTitle($title) {
         return <<<EOF
-            <h6 class='m-0 font-weight-bold text-dark'>{$title}</h6>
+            <h6 class='m-0 font-weight-bold'>{$title}</h6>
         EOF;
     }
 
     function wCardHeader($content) {
         return <<<EOF
-            <div class="card-header py-3">
+            <div class="card-header py-3" style="background-color:#0D0CB5;
+                color:#fff">
                 {$content}
             </div>
         EOF;

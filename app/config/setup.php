@@ -37,7 +37,7 @@
      * SYSTEM MODES
      * UP(UP AND RUNNING) , DOWN(MAINTENANCE) , DEV(DEVELOPMENT TEST DABATASE) , LOCAL (LOCAL MODE)
      */
-    $system['mode']  = 'up';
+    $system['mode']  = 'local';
 
     /**
      * SYSTEM SITE NAME
@@ -53,9 +53,6 @@
     /** VERSION */
 
     $system['version']  = 'N/A';
-
-
-    $system['app_name'] = 'Cadaceous Medical System';
 
     $ui = [
         'vendor' => 'cork'

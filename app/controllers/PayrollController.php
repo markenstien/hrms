@@ -26,10 +26,10 @@
 		}
 
 		public function create() {
-			if(!isEqual(whoIs('type'),[UserService::PAYROLL, UserService::SUPER_ADMIN])) {
-				Flash::set('Invalid Access');
-				return redirect(_route('dashboard:index'));
-			}
+			// if(!isEqual(whoIs('type'),[UserService::PAYROLL, UserService::SUPER_ADMIN])) {
+			// 	Flash::set('Invalid Access');
+			// 	return redirect(_route('dashboard:index'));
+			// }
 			
 			$message = '';
 

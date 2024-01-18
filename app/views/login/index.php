@@ -5,7 +5,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="text-center">
-                            <img src="<?php echo _path_upload_get('bits.png')?>" alt="bit-and-bytes logo"
+                            <img src="<?php echo _path_upload_get('logo_circle.png')?>" alt="bit-and-bytes logo"
                                 style="width:150px">
                             <h4>Welcome back!</h4>
                         </div>
@@ -56,6 +56,20 @@
                         </div>
                     <?php endif?>
                 </div>
+
+                <?php echo wDivider(50)?>
+
+                <div style="background-color: #fff;">
+                    <p class="text-center" style="padding: 30px;">
+                        DEMO SYSTEM BY <span class="highlight">
+                            <a href="https://chromaticsoftwares.com"><?php echo COMPANY_NAME?></a></span> 
+                        Discover our 
+                        <span class="highlight">
+                            <?php echo APP_NAME?> 
+                            Timekeeping And Payoll Management Software
+                        </span>
+                    </p>
+                </div>
             </div>
         </div>
 
@@ -71,4 +85,17 @@
 <?php endbuild()?>
 
 
+<?php build('styles')?>
+<style>
+    span.highlight{
+        background-color: #2f387b;
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+    span.highlight a,
+    span.highlight {
+        color: #fff;
+    }
+</style>
+<?php endbuild()?>
 <?php loadTo('tmp/public_layout')?>

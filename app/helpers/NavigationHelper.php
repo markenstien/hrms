@@ -6,8 +6,8 @@
 
         public function __construct()
         {
-            $this->moduleRestrict();
-            // $this->loadNavs();
+            // $this->moduleRestrict();
+            $this->loadNavs();
         }
 
         public function getNavsHTML() {

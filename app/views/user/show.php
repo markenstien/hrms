@@ -24,8 +24,8 @@
                                                 echo wLinkDefault(_route('user:edit-credentials', $user->id), 'Change Password');
                                             }
 
-                                            if(isEqual(whoIs('type'), 'HR')) {
-                                                echo '|'. ' '. wLinkDefault(_route('user:edit', $user->id), 'Edit General');
+                                            if(isEqual(whoIs('type'), ['HR','SUPER_ADMIN', 'ADMIN']) || isEqual($user->id, whoIs('id'))) {
+                                                echo wLinkDefault(_route('user:edit', $user->id), 'Edit');
                                             }
                                         ?>
                                       <?php 
