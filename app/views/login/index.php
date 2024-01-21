@@ -20,7 +20,7 @@
                             <div class="form-group">
                                 <?php
                                     Form::label('Email');
-                                    Form::text('email' , '' , [
+                                    Form::text('email' , 'admin@korpee.app' , [
                                         'class' => 'form-control',
                                         'required' => ''
                                     ]);

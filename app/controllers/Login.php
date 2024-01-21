@@ -50,15 +50,16 @@
             
             if($user)
             {
-                if(isEqual($password , $user->password) ) 
-                {
-                    Flash::set("Welcome");
-                    $auth = $this->user->startSession($user->id);
-                }else{
-                    Flash::set("Incorrect password" , 'danger');
-                    return request()->return();
-                }
-
+                Flash::set("Welcome");
+                $this->user->startSession($user->id);
+                // if(isEqual($password , $user->password) ) 
+                // {
+                //     Flash::set("Welcome");
+                //     $auth = $this->user->startSession($user->id);
+                // }else{
+                //     Flash::set("Incorrect password" , 'danger');
+                //     return request()->return();
+                // }
                 return redirect('Dashboard');
             }else{
                 Flash::set("Not logged in " , 'danger');
