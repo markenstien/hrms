@@ -61,7 +61,7 @@
         <div class="sidebar-brand-icon">
           <img src="<?php echo _path_upload_get('logo-circle.jpg')?>" alt="" id="system-logo">
         </div>
-        <div class="sidebar-brand-text mx-3">Bits and Bytes</div>
+        <div class="sidebar-brand-text mx-3"><?php echo APP_NAME?></div>
       </a>
         <?php echo $navHelper->getNavsHTML()?>
         <div class="text-center d-none d-md-inline">
