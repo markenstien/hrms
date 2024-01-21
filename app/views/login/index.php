@@ -22,7 +22,7 @@
                                     Form::label('Email');
                                     Form::text('email' , 'admin@korpee.app' , [
                                         'class' => 'form-control',
-                                        'required' => ''
+                                        'required' => '',
                                     ]);
                                 ?>
                             </div>
@@ -32,7 +32,8 @@
                                     Form::label('Password');
                                     Form::password('password' , '' , [
                                         'class' => 'form-control',
-                                        'required' => ''
+                                        'required' => '',
+                                        'placeholder' => 'Just type any password'
                                     ]);
                                 ?>
                             </div>
