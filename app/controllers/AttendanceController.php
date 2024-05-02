@@ -43,7 +43,8 @@
                 'urlAction' => QRTokenService::getLink($loginToken, [
                     'token' => $loginToken,
                     'device' => 'web',
-                    'userId' => whoIs('id')
+                    'userId' => whoIs('id'),
+                    'route' => _route('attendance:index')
                 ])
             ];
 

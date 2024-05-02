@@ -22,12 +22,15 @@
                 <?php if(isEqual($timelog['action'],'logout')) : ?>
                     <div class="alert alert-primary">
                         <div class="alert-div">
-                            <p>You are currently logged in : <span id="clockIn"><?php echo $timelog['last']->clock_in?></span>
+                            <p>You are currently logged in : 
+                                <span id="clockIn"><?php echo $timelog['last']->clock_in?></span>
                             <span id="duration" class="badge badge-warning"></span></p>
-
                             <?php echo wLinkDefault($timelog['urlAction'], 'Logout')?>
                         </div>
                     </div>
+
+                <?php else :?>
+                    <a href="<?php echo $timelog['urlAction']?>" class="btn btn-primary mb-3">Time In</a>
                 <?php endif?>
 
                 <?php

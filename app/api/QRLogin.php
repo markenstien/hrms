@@ -121,6 +121,10 @@
                     }
                     $route = empty($req['route']) ? _route('dashboard:index') : unseal($req['route']);
                     
+                    if(empty($route)) {
+                        return request()->return();
+                    }
+
                     return redirect($route);
                 }
     

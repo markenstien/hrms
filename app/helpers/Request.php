@@ -23,6 +23,7 @@
 				'__gsas'
 			];
 		}
+		
 		public function method()
 		{
 			return $this->method;

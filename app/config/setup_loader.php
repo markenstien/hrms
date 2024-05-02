@@ -10,7 +10,7 @@
             define('DBHOST' , 'localhost');
             define('DBUSER' , 'root');
             define('DBPASS' , '');
-            define('DBNAME' , 'th_hrms');
+            define('DBNAME' , 'chrom_timekeeping');
 
             define('BASECONTROLLER' , 'Login');
             define('BASEMETHOD' , 'index');

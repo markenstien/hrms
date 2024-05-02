@@ -22,10 +22,8 @@
     function isSubmitted()
     {
         $request = $_SERVER['REQUEST_METHOD'];
-
         if( strtolower($request) === 'post')
             return true;
-
         return false;
     }  
 
