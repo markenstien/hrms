@@ -212,10 +212,10 @@
                 return false;
             }
 
-            if(!isEqual($user->password , $password)) {
-                $this->addError("Unable to change username, password not matched");
-                return false;
-            }
+            // if(!isEqual($user->password , $password)) {
+            //     $this->addError("Unable to change username, password not matched");
+            //     return false;
+            // }
 
             return parent::update([
                 'username' => $username
@@ -225,10 +225,10 @@
         public function changePassword($userId, $newPassword, $password) {
             $user = parent::get($userId);
 
-            if(!isEqual($user->password, $password)) {
-                $this->addError("Unable to change password, password not matched.");
-                return false;
-            }
+            // if(!isEqual($user->password, $password)) {
+            //     $this->addError("Unable to change password, password not matched.");
+            //     return false;
+            // }
 
             return parent::update([
                 'password' => $newPassword
