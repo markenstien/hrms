@@ -26,7 +26,7 @@
                                 <tr>
                                     <td><?php echo ++$counter?></td>
                                     <td><?php echo $user->uid?></td>
-                                    <td><img src="<?php echo $user->profile_url?>" alt="user profile" style="width: 75px;"></td>
+                                    <td><img src="<?php echo $user->profile_url ?? 'https://korpee.app/public/uploads/logo-circle.jpg'?>" alt="user profile" style="width: 75px;"></td>
                                     <td><?php echo $user->fullname?></td>
                                     <td><?php echo $user->position_name?></td>
                                     <td><?php echo $user->department_name?></td>
