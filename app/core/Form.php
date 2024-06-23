@@ -26,6 +26,7 @@
 			$form_param['method'] = strtoupper($params['method'] ?? $this->_method);
 			$form_param['url'] = $params['url'] ?? $this->_url;
 			$form_param['enctype'] = 'multipart/form-data';
+			$form_param['autocomplete'] = 'off';
 
 			if(isset($params['attributes']) )
 				$form_param = array_merge($form_param , $params['attributes']);

@@ -45,7 +45,7 @@
   </style>
 </head>
 
-<body id="page-top">
+<body id="page-top" class="sidebar-toggled">
   <?php
     $navHelper = new NavigationHelper();
   ?>
@@ -54,7 +54,7 @@
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav sidebar accordion" id="accordionSidebar">
+    <ul class="navbar-nav sidebar accordion toggled" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
@@ -160,6 +160,12 @@ z      <!-- Core plugin JavaScript-->
       <script src="<?php echo _path_public('ui/ui-main/js/demo/datatables-demo.js')?>"></script>
       <script src="<?php echo _path_public('js/core.js')?>"></script>
       <script src="<?php echo _path_public('js/global.js')?>"></script>
+
+      <script>
+        $(document).ready(function(){
+          
+        });
+      </script>
       <?php produce('scripts') ?>
       </body>
 </html>

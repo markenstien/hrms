@@ -33,12 +33,10 @@
                     <a href="<?php echo $timelog['urlAction']?>" class="btn btn-primary mb-3">Time In</a>
                 <?php endif?>
 
-                <?php
-                    if(isEqual(whoIs('type'), 'HR')) {
-                        echo wLinkDefault(_route('attendance:approval'), 'Approvals');
-                    }
-                ?>
-                
+                <?php if(isEqual(whoIs('type'), ['admin','payroll'])) :?>
+                <a href="<?php echo _route('attendance:approval')?>" class="btn btn-primary mb-3">Approvals</a>
+                <?php endif?>
+
                 <?php Flash::show()?>
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable">

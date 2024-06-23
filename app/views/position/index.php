@@ -21,8 +21,8 @@
                             <?php foreach($positions as $key => $row) :?>
                                 <tr>
                                     <td><?php echo $row->position_name?></td>
-                                    <td><?php echo $row->min_rate?></td>
-                                    <td><?php echo $row->max_rate?></td>
+                                    <td><?php echo amountHTML($row->min_rate)?></td>
+                                    <td><?php echo amountHTML($row->max_rate)?></td>
                                     <td><?php echo wLinkDefault(_route('position:edit', $row->id), 'Edit')?></td>
                                 </tr>
                             <?php endforeach?>

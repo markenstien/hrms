@@ -16,7 +16,16 @@
         }
 
         public function index() {
-            $this->data['leave_point_logs'] = $this->model->getAll();
+            $condition = [];
+
+            if(isEqual(whoIs('type'), 'REGULAR_EMPLOYEE')) {
+                $condition = [
+                    'lp.user_id' => whoIs('id')
+                ];
+            }
+            $this->data['leave_point_logs'] = $this->model->getAll([
+                'where' => $condition
+            ]);
             return $this->view('leave_point/index', $this->data);
         }
         public function create() {

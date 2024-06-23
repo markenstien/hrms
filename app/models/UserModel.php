@@ -222,7 +222,7 @@
             ], $userId);
         }
 
-        public function changePassword($userId, $newPassword, $password) {
+        public function changePassword($userId, $newPassword, $password ='') {
             $user = parent::get($userId);
 
             // if(!isEqual($user->password, $password)) {

@@ -28,16 +28,6 @@
                         </div>
 
                         <div class="form-group">
-                            <?php
-                                Form::label('Password');
-                                Form::password('password', '', [
-                                    'class' => 'form-control',
-                                    'required' => true
-                                ])
-                            ?>
-                        </div>
-
-                        <div class="form-group">
                             <input type="submit" class="btn btn-primary btn-sm" value="Change Password">
                         </div>
                     <?php Form::close()?>

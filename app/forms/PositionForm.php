@@ -7,7 +7,7 @@ class PositionForm extends Form {
     public function __construct()
     {
         parent::__construct();
-
+        $this->init();
         $this->addName();   
         $this->addMinRate();   
         $this->addMaxRate();   

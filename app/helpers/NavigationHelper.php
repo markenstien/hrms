@@ -57,10 +57,14 @@
             $whoIs = whoIs();
 
             if($whoIs) {
-                $userTypeAccess = $this->userModuleAccess();
+                $userTypeAccess = $this->userModuleAccessTwo();
                 $modelGroup = $this->moduleGroup();
 
                 if($userAccess = $userTypeAccess[strtolower($whoIs['type'])]) {
+
+                    if(!is_array($userAccess)) {
+                        $userAccess = self::LIST_OF_LINKS;
+                    }
                     foreach($userAccess as $key => $row) {
                         foreach($modelGroup as $modKey => $modRow) {
                             $modRowItems = $modRow['items'];
@@ -81,6 +85,41 @@
             }
         }
 
+        public function userModuleAccessTwo() {
+            $access = [];
+                $access['admin'] = '*';
+                
+                $access['regular_employee'] = [
+                    'dashboard' => '*',
+                    'payslip' => '*',
+                    'attendance' => '*',
+                    'leave' => '*'
+                ];
+                
+                $access['payroll'] = [
+                    'dashboard' => '*',
+                    'payroll' => '*',
+                    'deduction' => '*',
+                ];
+
+            return $access;
+        }
+
+        const LIST_OF_LINKS = [
+            'dashboard' => '*',
+            'user' => '*',
+            'attendance' => '*',
+            'position' => '*',
+            'department' => '*',
+            'admin-shift' => '*',
+            'report' => '*',
+            'payroll' => '*',
+            'leave' => '*',
+            'leave-point' => '*',
+            'holiday'    => '*',
+            'recruitment' => '*',
+                'report' => '*'
+        ];
 
         public function userModuleAccess() {
             $access = [
@@ -103,7 +142,6 @@
                     'admin-shift' => 'view',
                     'report' => '*'
                 ],
-                
                 
                 'manager' => [
                     'dashboard' => '*',

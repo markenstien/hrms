@@ -58,7 +58,7 @@
             $order = null;
             $limit = null;
             if(!empty($params['where'])) {
-                $where = " WHRE ".parent::convertWhere($params['where']);
+                $where = " WHERE ".parent::convertWhere($params['where']);
             }
 
             if(!empty($params['order'])) {

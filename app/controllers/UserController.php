@@ -145,7 +145,7 @@
                         }
                     break;
                     case 'change_password':
-                        $res = $this->user->changePassword($post['user_id'], $post['new_password'], $post['password']);
+                        $res = $this->user->changePassword($post['user_id'], $post['new_password']);
                         if($res) {
                             Flash::set("Password updated");
                         } else {
