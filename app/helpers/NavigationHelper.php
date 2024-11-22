@@ -57,7 +57,7 @@
             $whoIs = whoIs();
 
             if($whoIs) {
-                $userTypeAccess = $this->userModuleAccessTwo();
+                $userTypeAccess = $this->userModuleAccess();
                 $modelGroup = $this->moduleGroup();
 
                 if($userAccess = $userTypeAccess[strtolower($whoIs['type'])]) {

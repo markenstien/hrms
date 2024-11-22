@@ -141,11 +141,11 @@ EOF;
 
 public static function radio($name , $value = null, $attributes = null)
 {
-$attributes = is_null($attributes) ? $attributes : keypair_to_str($attributes);
+    $attributes = is_null($attributes) ? $attributes : keypair_to_str($attributes);
 
-print <<<EOF
-    <input type="radio" name="{$name}" value="{$value}" {$attributes} />
-EOF;
+    print <<<EOF
+        <input type="radio" name="{$name}" value="{$value}" {$attributes} />
+    EOF;
 }
 
 
