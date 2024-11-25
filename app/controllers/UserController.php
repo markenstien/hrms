@@ -97,6 +97,9 @@
 
                 if($isUploadOk && (upload_empty('profile') == false)) {
                     $this->user->uploadProfile('profile', $id);
+                } else {
+                    Flash::set($this->user->getErrorString(), 'danger');
+                    return request()->return();
                 }
 
                 if(isEqual(whoIs('id'), $id)) {

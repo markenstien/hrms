@@ -7,6 +7,7 @@
                 
             } else {
                 $buttons[] = $navigationHelper->setNav('', 'File AC', _route('attendance:create'));
+                $buttons[] = $navigationHelper->setNav('', 'Import Sheet', _route('attendance:import'));
             }
 
             if(isEqual(whoIs('type'), ['SUPERADMIN','ADMIN','HR'])) {
@@ -33,7 +34,7 @@
                     <a href="<?php echo $timelog['urlAction']?>" class="btn btn-primary mb-3">Time In</a>
                 <?php endif?>
 
-                <?php if(isEqual(whoIs('type'), ['admin','payroll'])) :?>
+                <?php if(isEqual(whoIs('type'), ['admin','super_admin'])) :?>
                 <a href="<?php echo _route('attendance:approval')?>" class="btn btn-primary mb-3">Approvals</a>
                 <?php endif?>
 

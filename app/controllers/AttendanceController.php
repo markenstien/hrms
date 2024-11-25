@@ -1,8 +1,10 @@
 <?php
     use Form\AttendanceForm;
     use Services\QRTokenService;
+    use Services\SpreadSheetImport;
+    use Services\TimesheetService;
 
-    load(['QRTokenService'], SERVICES);
+    load(['SpreadSheetImport', 'TimesheetService', 'QRTokenService'], SERVICES);
     load(['AttendanceForm'], FORMS);
 
     class AttendanceController extends Controller
@@ -100,6 +102,71 @@
             $this->form->setValue('user_id', whoIs('id'));
             $this->data['form'] = $this->form;
             return view('attendance/create', $this->data);
+        }
+
+        public function import() {
+
+            if(isSubmitted()) {
+                $resp = upload_document('timesheet_file', PATH_UPLOAD.DS.'timesheets', ['csv']);
+
+                if($resp['status'] == 'failed') {
+                    Flash::set($resp['result']['err'], 'danger');
+                    return request()->return();
+                }
+
+                $pathToImport = PATH_UPLOAD.DS.'timesheets/'.$resp['result']['name'];
+
+                $post = request()->posts();
+                $spreadSheetImport = new SpreadSheetImport();
+                $returnData = $spreadSheetImport->import($pathToImport);
+                $timesheetService = new TimesheetService();
+                $timesheets = $timesheetService->importToDb($returnData);
+
+                $this->data['timesheets'] = $timesheets;
+                $this->data['file_name'] = seal($resp['result']['name']);
+
+                return $this->view('attendance/import_review', $this->data);
+            }
+
+            return $this->view('attendance/import', $this->data);
+        }
+
+        public function saveAndImport() {
+            $req = request()->inputs();
+
+            if(!empty($req['path'])) {
+                $pathName = trim(unseal($req['path']));
+                $pathToImport = PATH_UPLOAD.DS.'timesheets/'.$pathName;
+
+                $spreadSheetImport = new SpreadSheetImport();
+                $returnData = $spreadSheetImport->import($pathToImport);
+                $timesheetService = new TimesheetService();
+                $timesheets = $timesheetService->importToDb($returnData);
+
+                $timesheetsToImport = [];
+                foreach($timesheets as $date => $timelogs) {
+                    foreach($timelogs as $log) {
+                        if(!is_null($log['user_id']) && !empty($log['duration_in_minutes'])) {
+                            $timesheetsToImport[] = $log;
+                        }
+                    }
+                }
+
+                foreach($timesheetsToImport as $key => $row) {
+                    $resp = $this->model->manualEntry([
+                        'start_date' => $row['date'],
+                        'time_in' => $row['in'],
+                        'end_date' => $row['date'],
+                        'time_out' => $row['out'],
+                        'user_id' => $row['user_id'],
+                        'entry_type' => 'csv timesheet import'
+                    ]);
+                    $this->model->approve($this->model->_getRetval('attendanceId'), whoIs('id'));
+                }
+
+                Flash::set("Attendance Imported");
+                return redirect(_route('attendance:index'));
+            }
         }
 
         public function loggedIn() {

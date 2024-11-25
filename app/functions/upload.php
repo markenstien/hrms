@@ -185,14 +185,29 @@
         ];
     }
 
-    function upload_document($filename , $uploadPath)
+    function upload_document($filename , $uploadPath, $validExtensions = [])
     {
 
         $uploaderDocument = new UploaderDocument();
 
         $uploaderDocument->setDocument($filename)
-        ->setPath($uploadPath)
-        ->upload();
+        ->setPath($uploadPath);
+        $docExt = $uploaderDocument->getExtension();
+
+        if(!empty($validExtensions)) {
+            foreach($validExtensions as $validExt) {
+                if(!isEqual($validExt, $docExt)) {
+                    return [
+                        'status' => 'failed' ,
+                        'result' => [
+                            'err'  => 'Invalid Document Type',
+                            'name' => $uploaderDocument->getName()
+                        ]
+                    ];
+                }
+            }
+        }
+        $uploaderDocument->upload();
 
         if(!empty($uploaderDocument->getErrors()))
             return [

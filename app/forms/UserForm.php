@@ -45,7 +45,8 @@
 			$this->addGovSSS();
 			$this->addGovPhilhealth();
 			$this->addGovPagibig();
-
+			$this->addAttendanceExternalID();
+			
 			$this->addSubmit('');
 		}
 		public function addFirstName()
@@ -411,6 +412,21 @@
 				'class' => 'form-control',
 				'options' => [
 					'label' => 'Pagibig #'
+				]
+			]);
+		}
+
+		public function addAttendanceExternalID() {
+			$this->add([
+				'type' => 'text',
+				'name' => 'external_attendance_id',
+				'required' => false,
+				'class' => 'form-control',
+				'options' => [
+					'label' => 'External Attendance ID',
+				],
+				'attributes' => [
+					'placeholder' => 'Third party identification'
 				]
 			]);
 		}

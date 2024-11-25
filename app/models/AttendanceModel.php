@@ -67,7 +67,7 @@
                 'status'   => 'pending',
                 'type'     => $type,
                 'entry_type' => $_fillables['entry_type'],
-                'created_by' => $_fillables['created_by']
+                'created_by' => $_fillables['created_by'] ?? whoIs('id')
             ]);
 
             if(!$isOk) {

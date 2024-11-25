@@ -43,9 +43,10 @@
                     <hr/>
 
                     <div class="form-group row">
-                        <div class="col-md-4"><?php echo $form->getCol('hire_date')?></div>
-                        <div class="col-md-4"><?php echo $form->getCol('department_id')?></div>
-                        <div class="col-md-4"><?php echo $form->getCol('shift_id')?></div>
+                        <div class="col-md-6"><?php echo $form->getCol('hire_date')?></div>
+                        <div class="col-md-6"><?php echo $form->getCol('department_id')?></div>
+                        <div class="col-md-6"><?php echo $form->getCol('shift_id')?></div>
+                        <div class="col-md-6"><?php echo $form->getCol('external_attendance_id')?></div>
                     </div>
 
                     <div class="form-group row">

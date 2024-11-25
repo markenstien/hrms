@@ -33,6 +33,8 @@
 	_routeInstance('leave-point', 'LeavePointController', $routes);
 	_routeInstance('attendance', 'AttendanceController', $routes, [
 		'approval' => 'approval',
+		'import'   => 'import',
+		'save-and-import' => 'saveAndImport',
 		'logged-in' => 'loggedIn'
 	]);
 

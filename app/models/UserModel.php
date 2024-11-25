@@ -15,7 +15,8 @@
             'is_deleted',
             'birthdate',
             'gender',
-            'id'
+            'id',
+            'external_attendance_id'
         ];
 
         public function addNew($userData) {
@@ -110,6 +111,11 @@
 
         public function updateComplete($userData, $userId) {
             $userValidColumns = parent::getFillablesOnly($userData);
+            $isValidated = $this->validate($userValidColumns, $userId);
+
+            if(!$isValidated) {
+                return false;
+            }            
             $isUpdateOkay = parent::update($userValidColumns, $userId);
 
             if(!$isUpdateOkay) {
@@ -274,16 +280,26 @@
 				}
 			}
 
+            if(!empty($user_data['external_attendance_id'])) {
+                $is_exist = $this->single([
+                    'external_attendance_id' => $user_data['external_attendance_id']
+                ]);
+                if( $is_exist && !isEqual($is_exist->id , $id) ){
+					$this->addError("External Attendance Identification already exists.");
+					return false;
+				}
+            }
+
 			return true;
 		}
 
-        public function getByKey($column , $key , $order = null)
+        public function getByKey($column , $value , $order = null)
 		{
 			if( is_null($order) )
 				$order = $column;
 
 			return parent::getAssoc($column , [
-				$column => "{$key}"
+				$column => "{$value}"
 			]);
 		}
 
