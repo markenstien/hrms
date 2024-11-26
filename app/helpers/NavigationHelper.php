@@ -197,7 +197,7 @@
                         'admin-shift|index|Schedule|fas fa-fw fa-calendar',
                         'user|index|Employee|fas fa-fw fa-user',
                         'deduction|index|Deductions|fas fa-fw fa-window-close',
-                        'report|index|Report|fas fa-fw fa-chart-bar'
+                        // 'report|index|Report|fas fa-fw fa-chart-bar'
                     ]
                 ],
 
@@ -207,8 +207,8 @@
                         'attendance|index|Attendance|fas fa-fw fa-clock',
                         'holiday|index|Holiday|fas fa-fw fa-window-close',
                         'payroll|index|Payroll|fa fa-fw fa-folder',
-                        'leave|index|Leave|fa fa-fw fa-user-times',
-                        'recruitment|index|Recruitment|fa fa-fw fa-user-plus'
+                        // 'leave|index|Leave|fa fa-fw fa-user-times',
+                        // 'recruitment|index|Recruitment|fa fa-fw fa-user-plus'
                     ]
                 ],
 
