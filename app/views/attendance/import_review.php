@@ -30,7 +30,7 @@
                             </tr>
                             <?php foreach($timelogs as $key => $row) :?>
                                 <tr>
-                                    <td><?php echo ++$key?></td>
+                                    <td><?php echo $key?></td>
                                     <td><?php echo $row['name']?></td>
                                     <td><?php echo $row['in'] ?? 'NO IN FOUND'?></td>
                                     <td><?php echo $row['out'] ?? 'NO OUT FOUND'?></td>

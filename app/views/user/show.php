@@ -114,7 +114,7 @@
                                             <td>
                                                 <?php
                                                     echo $row->is_visible ? 'Approved' : 'Pending';
-                                                    if(isEqual(whoIs('type'), 'HR')){
+                                                    if(isEqual(whoIs('type'), 'HR', 'SUPER_ADMIN')){
                                                         if(!$row->is_visible) {
                                                             echo wLinkDefault(_route('attachment:update-visibility', [
                                                                 'visible' => 'yes',
