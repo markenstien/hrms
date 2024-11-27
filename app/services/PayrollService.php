@@ -30,18 +30,21 @@
             return $this;
         }
         
+        public function getItems() {
+            return $this->_items;
+        }
         public function soryByDepartment() {
             $retVal = [];
             foreach($this->_items as $key => $row) {
-                if(!isset($retVal[$row->branch_id])) {
-                    $retVal[$row->branch_id] = [
-                        'name' => $row->branch_name,
+                if(!isset($retVal[$row->department_id])) {
+                    $retVal[$row->department_id] = [
+                        'name' => $row->department_name,
                         'users' => [
                             $row
                         ]
                     ];
                 } else {
-                    $retVal[$row->branch_id]['users'][] = $row;
+                    $retVal[$row->department_id]['users'][] = $row;
                 }
             }
 
@@ -54,16 +57,30 @@
             return $this->_sortedByDepartments;
         }
 
+        public function export() {
+            $items = [];
+            foreach($this->getItems() as $key => $item) {
+                $items[] = [
+                        'Staff',
+                        'No of work Days',
+                        'Hours Worked',
+                        'Take Home Pay'
+                    ];
+            }
+        }
+
         public function exportPerSheetByDepartment() {
             /**
              * The Headers
              */
             $items = [];
             $summaryPerDepartment = [];
-            if(!empty($this->_sortedByDepartments)) 
+
+            $departmentItems = $this->getByDepartments();
+            if(!empty($departmentItems)) 
             {
-                $this->_spreadSheetService = new SpreadSheetExport("Payroll Period : {$this->_start} To {$this->_end}. as of {$this->_dateToday} Report by user : {$this->_user}");
-                foreach($this->_sortedByDepartments as $departmentIdKey => $department) {
+                $this->_spreadSheetService = new SpreadSheetExport("PERIOD_{$this->_start}_{$this->_end}_OF_{$this->_dateToday}_CREATOR_{$this->_user}");
+                foreach($departmentItems as $departmentIdKey => $department) {
                     /**
                      * Initiate Headers
                      */
@@ -73,7 +90,6 @@
                         'Hours Worked',
                         'Take Home Pay'
                     ];
-                    
                     $departmentName = $department['name'];
                     $users = $department['users'];
 
@@ -85,7 +101,6 @@
                             number_format($user->take_home_pay, 2)
                         ]);
                     }
-
                     $this->_spreadSheetService->setItems($items, $departmentName);
 
                     $itemSummary = $this->calculateSummary($users);
@@ -98,7 +113,7 @@
                     ];
 
                     //reset headers
-                    $items = [];
+                    // $items = [];
                 }
 
                 /**
@@ -130,12 +145,9 @@
                     '',
                     $overAllTotalAmount
                 ]);
-                
 
                 $this->_spreadSheetService->setItems($overAllItems, "Summary");
                 $this->_spreadSheetService->setActiveWorkSheet("Summary");
-
-
                 $this->_spreadSheetService->export();
             } else {
                 return false;

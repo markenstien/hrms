@@ -42,7 +42,7 @@
             $userSalary = $this->employeeSalaryModel->single([
                 'user_id' => $_fillables['user_id']
             ]);
-
+            
             if(!$userSalary) {
                 $this->addError("User has no salary infor, unable to compute timesheet.");
                 return false;
@@ -57,7 +57,7 @@
             $timeInMinutes   = $this->concatDateAndTime($entryData['start_date'], $entryData['time_in']);
             $timeOutInMinutes = $this->concatDateAndTime($entryData['end_date'], $entryData['time_out']);
             $amount = ($convertedTimeMinutes / 60) * $userSalary->salary_per_hour;
-
+            
             $isOk = parent::store([
                 'user_id' => $_fillables['user_id'],
                 'time_in' => $timeInMinutes,

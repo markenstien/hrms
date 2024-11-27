@@ -66,7 +66,7 @@
 				"SELECT item.*,
 					concat(user.firstname , ' ', user.lastname) as fullname ,
 					user.uid, user.firstname, user.lastname,
-					branch_id as department_id, department.branch as department_name,
+					eed.department_id as department_id, department.branch as department_name,
 					payroll.start_date, payroll.end_date,position.position_name as position_name
 					
 					FROM {$this->table} as item

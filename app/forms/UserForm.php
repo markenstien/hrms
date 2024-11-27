@@ -218,9 +218,6 @@
 					'label' => 'User Access',
 					'option_values' => [
 						'SUPERADMIN' => 'SUPERADMIN',
-						'ADMIN' => 'ADMIN',
-						'HR'  => 'HR',
-						'PAYROLL' => 'PAYROLL',
 						'REGULAR_EMPLOYEE' => 'REGULAR_EMPLOYEE'
 					]
 				],

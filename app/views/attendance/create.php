@@ -10,6 +10,13 @@
                 <?php Flash::show()?>
                 <?php echo $form->start()?>
                 <?php echo $form->get('user_id')?>
+                <?php
+                    if(isEqual(whoIs('type'), 'SUPER_ADMIN')) {
+                        echo $form->getCol('uid');
+                    }
+                ?>
+
+                
                 <div class="form-group"><?php echo $form->getCol('entry_type')?></div>
                 <div class="form-group row">
                     <div class="col-md-6"><?php echo $form->getCol('start_date')?></div>

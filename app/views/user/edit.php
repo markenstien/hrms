@@ -5,7 +5,7 @@
         ])?>
         <div class="col-md-6 mx-auto">
             <div class="card">
-                <?php echo wCardHeader(wCardTitle('Add New Employee'))?>
+                <?php echo wCardHeader(wCardTitle('Edit Employee'))?>
                 <div class="card-body">
                     <?php Flash::show()?>
                     <?php echo $form->start()?>

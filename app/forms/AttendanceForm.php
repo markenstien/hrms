@@ -16,6 +16,7 @@
             $this->addStartTime();
             $this->addEndTime();
             $this->addReason();
+            $this->addUID();
             $this->addUserId();
         }
 
@@ -106,12 +107,27 @@
 
         public function addUsername() {
             $this->add([
-                'type' => 'username',
-                'name' => 'reason',
+                'type' => 'text',
+                'name' => 'username',
                 'class' => 'form-control',
                 'options' => [
-                    'label' => 'Reason',
-                    'placeholder' => 'Add user ID if filling up attendance for someone else'
+                    'label' => 'Username',
+                    'placeholder' => 'Add username if filling up attendance for someone else'
+                ]
+            ]);
+        }
+
+        public function addUID() {
+            $this->add([
+                'type' => 'text',
+                'name' => 'uid',
+                'class' => 'form-control',
+                'options' => [
+                    'label' => 'User ID',
+                ],
+
+                'attributes' => [
+                    'placeholder' => 'Add User ID if filling up attendance for someone else leave empty if for you'
                 ]
             ]);
         }

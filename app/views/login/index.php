@@ -20,7 +20,7 @@
                             <div class="form-group">
                                 <?php
                                     Form::label('Email');
-                                    Form::text('email' , 'admin@korpee.app' , [
+                                    Form::text('email' , '' , [
                                         'class' => 'form-control',
                                         'required' => '',
                                     ]);
@@ -33,7 +33,7 @@
                                     Form::password('password' , '' , [
                                         'class' => 'form-control',
                                         'required' => '',
-                                        'placeholder' => 'Just type any password'
+                                        'placeholder' => ''
                                     ]);
                                 ?>
                             </div>
@@ -61,12 +61,14 @@
                 <?php echo wDivider(50)?>
 
                 <div style="background-color: #fff;">
-                    <p class="text-center" style="padding: 30px;">
+                    <div style="display: none;">
                         DEMO SYSTEM BY <span class="highlight">
                             <a href="https://chromaticsoftwares.com"><?php echo COMPANY_NAME?></a></span> 
                         Discover our 
+                    </div>
+                    <p class="text-center" style="padding: 30px;">
                         <span class="highlight">
-                            <?php echo APP_NAME?> 
+                            <span style="display: none;"><?php echo APP_NAME?></span> 
                             Timekeeping And Payoll Management Software
                         </span>
                     </p>

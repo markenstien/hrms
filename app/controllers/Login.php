@@ -50,20 +50,28 @@
             
             if($user)
             {
-                Flash::set("Welcome");
-                if(isEqual($post['email'],'admin@korpee.app')) {
+                if(isEqual($password , $user->password) ) 
+                {
                     Flash::set("Welcome");
                     $auth = $this->user->startSession($user->id);
-                } else {
-                    if(isEqual($password , $user->password) ) 
-                    {
-                        Flash::set("Welcome");
-                        $auth = $this->user->startSession($user->id);
-                    }else{
-                        Flash::set("Incorrect password" , 'danger');
-                        return request()->return();
-                    }
+                }else{
+                    Flash::set("Incorrect password" , 'danger');
+                    return request()->return();
                 }
+                
+                // if(isEqual($post['email'],'admin@korpee.app')) {
+                //     Flash::set("Welcome");
+                //     $auth = $this->user->startSession($user->id);
+                // } else {
+                //     if(isEqual($password , $user->password) ) 
+                //     {
+                //         Flash::set("Welcome");
+                //         $auth = $this->user->startSession($user->id);
+                //     }else{
+                //         Flash::set("Incorrect password" , 'danger');
+                //         return request()->return();
+                //     }
+                // }
                 
                 return redirect('Dashboard');
             }else{

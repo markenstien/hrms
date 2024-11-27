@@ -28,7 +28,6 @@
                     $this->workSheet->setCellValue($this->cellPosition($itemCol, $itemRow), $row);
                 }
             }
-
             $this->sheet->addSheet($this->workSheet,0);
         }
 
@@ -43,10 +42,9 @@
         }
 
         public function export() {
-            
             $filename = $this->title.'-'.time().'.xlsx';
 			// Redirect output to a client's web browser (Xlsx)
-			header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 			header('Content-Disposition: attachment;filename="'.$filename.'"');
 			header('Cache-Control: max-age=0');
 			// If you're serving to IE 9, then the following may be needed
@@ -59,6 +57,7 @@
 			header('Pragma: public'); // HTTP/1.
 
 			$writer = IOFactory::createWriter($this->sheet, 'Xlsx');
+            
 			ob_get_clean();
 			$writer->save('php://output');
         }

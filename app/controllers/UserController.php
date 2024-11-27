@@ -91,15 +91,21 @@
         {
             if(isSubmitted()) {
                 $post = request()->posts();
-                $isUploadOk = $this->user->updateComplete($post, $post['id']);
-
+                $isUpdateOkay = $this->user->updateComplete($post, $post['id']);
                 $user = $this->user->get($id);
 
-                if($isUploadOk && (upload_empty('profile') == false)) {
-                    $this->user->uploadProfile('profile', $id);
-                } else {
+                if(!$isUpdateOkay) {
                     Flash::set($this->user->getErrorString(), 'danger');
                     return request()->return();
+                }
+
+                //try to upload image
+                if(!upload_empty('profile')) {
+                    $isUploadOk = $this->user->uploadProfile('profile', $id);
+                    if(!$isUploadOk) {
+                        Flash::set($this->user->getErrorString(), 'danger');
+                        return request()->return();
+                    }
                 }
 
                 if(isEqual(whoIs('id'), $id)) {
@@ -107,7 +113,6 @@
                 }
 
                 Flash::set("User has been updated");
-
                 return redirect(_route('user:show', $id));
             }
 

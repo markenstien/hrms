@@ -17,7 +17,7 @@
             $this->form = new AttendanceForm();
             $this->model = model('AttendanceModel');
             $this->timelogPlusModel = model('TimelogPlusModel');
-
+            $this->userModel = model('UserModel');
             $this->data['form'] = $this->form;
         }
 
@@ -88,6 +88,19 @@
             if(isSubmitted()) {
                 $post = request()->posts();
                 $post['created_by'] = whoIs('id');
+
+                if(!empty($post['uid'])) {
+                    //search user
+                    $user = $this->userModel->getByKey('uid', $post['uid'])[0] ?? false;
+
+                    if(!$user) {
+                        Flash::set("No user with such ID '{$post['uid']}' ", 'warning');
+                        return request()->return();
+                    } else {
+                        $post['user_id'] = $user->id;
+                    }
+                }
+
                 $isOk = $this->model->manualEntry($post);
                 
                 if(!$isOk) {
