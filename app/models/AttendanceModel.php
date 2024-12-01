@@ -56,8 +56,13 @@
 
             $timeInMinutes   = $this->concatDateAndTime($entryData['start_date'], $entryData['time_in']);
             $timeOutInMinutes = $this->concatDateAndTime($entryData['end_date'], $entryData['time_out']);
+            //if greater than 8hrs
+            if(($convertedTimeMinutes / 60) > 8) {
+                $convertedTimeMinutes = 8 * 60; //convert time to minutes 8hours only
+            }
+
             $amount = ($convertedTimeMinutes / 60) * $userSalary->salary_per_hour;
-            
+
             $isOk = parent::store([
                 'user_id' => $_fillables['user_id'],
                 'time_in' => $timeInMinutes,

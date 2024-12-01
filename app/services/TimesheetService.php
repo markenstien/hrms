@@ -88,8 +88,13 @@
                     }
 
                     if(!empty($cleaned[$date][$row['uid']]['in']) && !empty($cleaned[$date][$row['uid']]['out'])) {
-                        $cleaned[$date][$row['uid']]['duration_in_minutes'] = timeDifferenceInMinutes(
+                        $durationInMinutes = timeDifferenceInMinutes(
                             $cleaned[$date][$row['uid']]['in'], $cleaned[$date][$row['uid']]['out']);
+
+                        if(($durationInMinutes / 60) > 8) {
+                                $durationInMinutes = 8 * 60; //convert time to minutes 8hours only
+                            }
+                        $cleaned[$date][$row['uid']]['duration_in_minutes'] = $durationInMinutes;
                     }
                 }
             }

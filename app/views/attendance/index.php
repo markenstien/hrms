@@ -63,7 +63,7 @@
                                     <td><?php echo $row->entry_type?></td>
                                     <td><?php echo $row->time_in?></td>
                                     <td><?php echo $row->time_out?></td>
-                                    <td><?php echo minutesToHours(dateDifferenceInMinutes($row->time_in, $row->time_out))?></td>
+                                    <td><?php echo minutesToHours($row->duration)?></td>
                                     <td><?php echo $row->status?></td>
                                     <td><?php echo $row->approver_name?></td>
                                     <td><?php echo $row->approval_date?></td>
