@@ -51,11 +51,10 @@
                     'where' => $condition
                 ]);
             } else {
+                $condition = [];
                 if(isEqual(whoIs('type'), UserService::REGULAR_EMPLOYEE)) {
                     $condition['el.user_id'] = whoIs('id');
                 }
-
-                $condition = '';
                 $leaves = $this->model->getAll([
                     'where' => $condition,
                     'order' => 'FIELD(el.status, "pending", "approved", "declined"), el.updated_at desc',

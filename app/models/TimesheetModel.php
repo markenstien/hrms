@@ -738,7 +738,7 @@
                         'username' => $row->username,
                         'fullname' => $row->fullname,
                         'rate_per_day'     => $row->salary_per_day,
-                        'rate_per_hour'   => $row->salary_per_hour,
+                        'rate_per_hour'   => ($row->salary_per_day / 8),
                         'max_work_hours'   => EmployeeService::DEFAULT_WORK_HOURS,
                         'department_id'       => $row->department_id,
                         'department_name'     => $row->department_name,

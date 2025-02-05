@@ -1,4 +1,4 @@
-const URL = 'https://app.breakthrough-e.com';
+const URL = 'http://dev.th_hris';
 
 const DS  = '/';
 

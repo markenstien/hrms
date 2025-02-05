@@ -61,8 +61,14 @@
                 $convertedTimeMinutes = 8 * 60; //convert time to minutes 8hours only
             }
 
-            $amount = ($convertedTimeMinutes / 60) * $userSalary->salary_per_hour;
 
+            // $amount = ($convertedTimeMinutes / 60) * $userSalary->salary_per_hour;
+            /**
+             * temporary fix must add if user salary will be based 
+             * on time or per day or monthly.
+             */
+            $amount = ($convertedTimeMinutes / 60) * ($userSalary->salary_per_day / 8);
+            
             $isOk = parent::store([
                 'user_id' => $_fillables['user_id'],
                 'time_in' => $timeInMinutes,

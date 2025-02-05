@@ -108,17 +108,14 @@
             $lastRow = $this->lastRow($userId);
             //set last row val
             $this->lastPunch = $lastRow;
-
             $user = $this->user->getMeta($userId);
-
             $userMeta = $user->userMeta;
 
-            if( isEqual($lastRow->type , 'time_out') )
+            if(isEqual($lastRow->type , 'time_out')){
                 return false;
-
-
+            }
+                
             $dateTime = nowMilitary();
-
             $lastPunchTime = $lastRow->punch_time;
             $WORK_HOURS_RENDERED = timeDifferenceInMinutes($lastPunchTime, $dateTime);
             
@@ -150,15 +147,10 @@
             $this->actionTaken = 'logged out';
             
             $clockOut = parent::store([
-
                 'user_id' => $userId,
-
                 'session' => $lastRow->session,
-
                 'punch_time' => $dateTime,
-
                 'type'  => 'time_out'
-
             ]);
 
             $timeSheet = [

@@ -6,7 +6,7 @@
                 'icon' => 'fas fa-eye'
             ])];
 
-            if(isEqual(whoIs('type'), 'HR')) {
+            if(isEqual(whoIs('type'), ['HR', 'ADMIN', 'SUPERADMIN'])) {
                 array_push($navs, $navigationHelper->setNav('', 'Add Leave Point', _route('leave-point:create')));
             }
 

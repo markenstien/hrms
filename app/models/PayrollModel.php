@@ -113,6 +113,7 @@
 					/**
 					 * add compensentation **/
 					CommonService::_timeSheetComputation($usersTimesheets, $regTotalWorkHours, $daysOfWork, $regTotalAmount);
+					$takeHomePay += $regTotalAmount;
 					$paramsData = [
 						'user_id' => $user['user_id'],
 						'payroll_id' => $payroll->id,
@@ -176,7 +177,6 @@
 						}
 
 					$paramsData['take_home_pay'] = $takeHomePay;
-
 					$isOkay = $this->payrollItemModel->release($paramsData);
 
 					//update deductions

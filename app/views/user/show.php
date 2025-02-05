@@ -81,7 +81,10 @@
                                     <th>#</th>
                                     <th>File Name</th>
                                     <th>Action</th>
+                                    <th>Status</th>
+                                    <?php if(isEqual(whoIs('type'), ['admin', 'superadmin'])) :?>
                                     <th>Approval</th>
+                                    <?php endif?>
                                 </thead>
 
                                 <tbody>
@@ -110,20 +113,21 @@
                                                     }
                                                 ?>
                                             </td>
-                                        
+                                            <td><?php echo $row->is_visible ? '<span class="badge badge-success">Approved</span>' : '<span class="badge badge-warning">Pending</span>';?></td>
+                                            <?php if(isEqual(whoIs('type'), ['ADMIN', 'SUPERADMIN'])) :?>
                                             <td>
                                                 <?php
-                                                    echo $row->is_visible ? 'Approved' : 'Pending';
-                                                    if(isEqual(whoIs('type'), 'HR', 'SUPER_ADMIN')){
-                                                        if(!$row->is_visible) {
-                                                            echo wLinkDefault(_route('attachment:update-visibility', [
-                                                                'visible' => 'yes',
-                                                                'id'      => seal($row->id)
-                                                            ]), 'Approve');
-                                                        }
+                                                    if(!$row->is_visible) {
+                                                        echo wLinkDefault(_route('attachment:update-visibility', [
+                                                            'visible' => 'yes',
+                                                            'id'      => seal($row->id)
+                                                        ]), 'Approve', [
+                                                            'class' => 'btn btn-sm btn-primary'
+                                                        ]);
                                                     }
                                                 ?>
                                             </td>
+                                            <?php endif?>
                                         </tr>
                                     <?php endforeach?>
                                 </tbody>

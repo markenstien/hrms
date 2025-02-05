@@ -5,12 +5,12 @@
     switch(SYSTEM_MODE)
     {
         case 'local':
-            define('URL' , 'http://dev.bitbyte_hris');
+            define('URL' , 'http://dev.th_hris');
             define('DBVENDOR' , 'mysql');
             define('DBHOST' , 'localhost');
             define('DBUSER' , 'root');
             define('DBPASS' , '');
-            define('DBNAME' , 'korpzpru_korpee');
+            define('DBNAME' , 'th_hris_test');
 
             define('BASECONTROLLER' , 'Login');
             define('BASEMETHOD' , 'index');

@@ -142,19 +142,28 @@
 		public function release($param) {
 			$csrf = csrfGet();
 			$param = unseal($param);
-			// csrfReload();
+			csrfReload();
 
-			if(!isEqual($param['token'], $csrf)) {
-				echo 'Invalid Token';
-			} else {
-				$id = $param['id'];
-				$isOkay = $this->model->release($id);
+			$id = $param['id'];
+			$isOkay = $this->model->release($id);
 
-				if($isOkay) {
-					Flash::set("Payroll sent.");
-					return redirect('PayrollController/show_release/'.$id);
-				}
+			if($isOkay) {
+				Flash::set("Payroll sent.");
+				return redirect('PayrollController/show_release/'.$id);
 			}
+
+
+			// if(!isEqual($param['token'], $csrf)) {
+			// 	echo 'Invalid Token';
+			// } else {
+			// 	$id = $param['id'];
+			// 	$isOkay = $this->model->release($id);
+
+			// 	if($isOkay) {
+			// 		Flash::set("Payroll sent.");
+			// 		return redirect('PayrollController/show_release/'.$id);
+			// 	}
+			// }
 		}
 
 		public function show_release($id) {
@@ -196,7 +205,6 @@
 				'totalSalaryAmount' => $totalSalaryAmount,
 				'groupedByBranch' => $groupedByBranch
 			];
-
 			return $this->view('payroll/show_release', $data);
 		}
 

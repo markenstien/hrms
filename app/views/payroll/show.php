@@ -145,7 +145,7 @@
 											<?php
 												if(!empty($row['deductions'])) {
 													foreach($row['deductions'] as $deductKey => $deductData) : ?>
-														<?php $deduction = $deductData->deduction_amount?>
+														<?php $deduction += $deductData->deduction_amount?>
 														<span class="badge badge-warning" title="<?php echo $deductData->deduction_name?>">
 															<?php echo $deductData->deduction_amount?>
 														</span>

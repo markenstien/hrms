@@ -7,6 +7,7 @@
         public function __construct()
         {
             $this->loadNavs();
+            // $this->moduleRestrict();
         }
 
         public function getNavsHTML() {
@@ -57,7 +58,7 @@
             $whoIs = whoIs();
 
             if($whoIs) {
-                $userTypeAccess = $this->userModuleAccessTwo();
+                $userTypeAccess = $this->userModuleAccess();
                 $modelGroup = $this->moduleGroup();
 
                 if($userAccess = $userTypeAccess[strtolower($whoIs['type'])]) {
@@ -133,7 +134,7 @@
                     'report' => '*'
                 ],
 
-                'super-admin' => [
+                'superadmin' => [
                     'dashboard' => '*',
                     'user' => 'view',
                     'attendance' => '*',
