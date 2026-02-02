@@ -10,7 +10,7 @@
             define('DBHOST' , 'localhost');
             define('DBUSER' , 'root');
             define('DBPASS' , '');
-            define('DBNAME' , 'th_hris_test');
+            define('DBNAME' , 'th_hris');
 
             define('BASECONTROLLER' , 'Login');
             define('BASEMETHOD' , 'index');
